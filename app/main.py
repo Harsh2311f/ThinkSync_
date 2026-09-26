@@ -1,9 +1,14 @@
 from fastapi import FastAPI
-from app.routes import sections
+from app.routes import sections, tasks, resources, blocks, traffic
 
 app = FastAPI(title="ThinkSync Backend")
 
-app.include_router(sections.router)
+app.include_router(sections.router, prefix="/api")
+app.include_router(tasks.router, prefix="/api")
+app.include_router(resources.router, prefix="/api")
+app.include_router(blocks.router, prefix="/api")
+app.include_router(traffic.router, prefix="/api")
+
 
 @app.get("/api/health")
 def health_check():
