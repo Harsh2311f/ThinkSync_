@@ -1,8 +1,11 @@
 from fastapi import FastAPI
 from app.routes import sections, tasks, resources, blocks, traffic
+from app.routes import dashboard
+
+
 
 app = FastAPI(title="ThinkSync Backend")
-
+app.include_router(dashboard.router, prefix="/api", tags=["dashboard"])
 app.include_router(sections.router, prefix="/api")
 app.include_router(tasks.router, prefix="/api")
 app.include_router(resources.router, prefix="/api")
