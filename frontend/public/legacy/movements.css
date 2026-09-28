@@ -1,0 +1,1536 @@
+/* ==========================================================================
+   TRAIN MOVEMENTS DASHBOARD STYLESHEET (movements.css)
+   Extends base styling in style.css with strict containment, 
+   telemetry Coming Soon view, live train movements table,
+   congestion bars, milestone timeline, and locomotive details.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. MAIN WRAPPER & BOUNDING CONSTRAINTS
+   -------------------------------------------------------------------------- */
+.movements-page-main {
+  padding: 0.85rem 1.25rem 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Base Card Extensions */
+.dashboard-card {
+  background: var(--bg-card, #FFFFFF);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   2. TOP 6 KPI SUMMARY METRIC CARDS ROW
+   -------------------------------------------------------------------------- */
+.movements-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.75rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.movements-kpi-card {
+  background: var(--bg-card, #FFFFFF);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 0.75rem 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 0;
+}
+
+.movements-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.kpi-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.kpi-icon-box.blue {
+  background: #EFF6FF;
+  color: #2563EB;
+}
+
+.kpi-icon-box.purple {
+  background: #F5F3FF;
+  color: #7C3AED;
+}
+
+.kpi-icon-box.green {
+  background: #ECFDF5;
+  color: #10B981;
+}
+
+.kpi-icon-box.red {
+  background: #FEF2F2;
+  color: #EF4444;
+}
+
+.kpi-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.kpi-label {
+  font-size: 0.71rem;
+  font-weight: 600;
+  color: #64748B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpi-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin-top: 0.15rem;
+}
+
+.kpi-value {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.1;
+  font-family: var(--font-mono);
+}
+
+.kpi-trend {
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.kpi-trend.green { color: #16A34A; }
+.kpi-trend.red { color: #DC2626; }
+
+.kpi-subtext {
+  font-size: 0.65rem;
+  color: #64748B;
+  margin-top: 0.15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --------------------------------------------------------------------------
+   3. 2-COLUMN MAIN WORKSPACE GRID
+   Col 1: Live Movements Map Card (~48%)
+   Col 2: Live & Upcoming Movements Table Card (~52%)
+   -------------------------------------------------------------------------- */
+.movements-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 48fr) minmax(0, 52fr);
+  gap: 0.85rem;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Card Header Common */
+.movements-card-header {
+  padding: 0.75rem 1.1rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.movements-card-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+/* Live View Dropdown */
+.movements-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.live-view-dropdown-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--border-radius-xs);
+  padding: 0.25rem 0.65rem 0.25rem 0.75rem;
+  gap: 0.4rem;
+}
+
+.live-view-pulse {
+  width: 7px;
+  height: 7px;
+  background: #10B981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+  animation: pulseBeacon 2s infinite ease-in-out;
+}
+
+.live-view-dropdown-wrapper select {
+  background: transparent;
+  border: none;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  outline: none;
+  padding-right: 0.8rem;
+}
+
+/* Map Status & Legend Ribbon */
+.movements-legend-bar {
+  padding: 0.5rem 1.1rem;
+  background: #F8FAFC;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.71rem;
+}
+
+.legend-pill-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 500;
+  color: #475569;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-dot.green { background: #10B981; }
+.legend-dot.orange { background: #F59E0B; }
+.legend-dot.red { background: #EF4444; }
+.legend-dot.blue { background: #2563EB; }
+.legend-dot.purple { background: #7C3AED; }
+
+/* Map Viewport & Telemetry Coming Soon Presentation */
+.movements-map-viewport {
+  position: relative;
+  min-height: 380px;
+  max-height: 420px;
+  background: radial-gradient(circle at 50% 50%, #F8FAFC 0%, #EFF6FF 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 1.5rem;
+}
+
+.telemetry-coming-soon {
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 2;
+}
+
+.telemetry-beacon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #EFF6FF;
+  border: 2px solid #3B82F6;
+  color: #1D4ED8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  position: relative;
+  box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.15), 0 0 0 16px rgba(59, 130, 246, 0.06);
+  animation: radarPulse 3s infinite ease-in-out;
+}
+
+@keyframes radarPulse {
+  0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4), 0 0 0 0 rgba(59, 130, 246, 0.2); }
+  50% { box-shadow: 0 0 0 12px rgba(59, 130, 246, 0.15), 0 0 0 24px rgba(59, 130, 246, 0.05); }
+  100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0), 0 0 0 0 rgba(59, 130, 246, 0); }
+}
+
+.telemetry-badge {
+  background: #FEF3C7;
+  color: #B45309;
+  border: 1px solid #FDE68A;
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.telemetry-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.telemetry-desc {
+  font-size: 0.77rem;
+  color: #64748B;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.telemetry-pills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.35rem;
+}
+
+.telemetry-pill {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 9999px;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #334155;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.telemetry-pill i {
+  color: #2563EB;
+}
+
+/* --------------------------------------------------------------------------
+   4. RIGHT COLUMN: LIVE & UPCOMING TRAIN MOVEMENTS TABLE
+   -------------------------------------------------------------------------- */
+.movements-table-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.table-header-filters {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.train-filter-tabs {
+  display: flex;
+  align-items: center;
+  background: #F1F5F9;
+  border-radius: var(--border-radius-xs);
+  padding: 2px;
+  gap: 2px;
+}
+
+.train-tab-btn {
+  background: transparent;
+  border: none;
+  border-radius: var(--border-radius-xs);
+  padding: 0.3rem 0.7rem;
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: #64748B;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.15s ease;
+}
+
+.train-tab-btn:hover {
+  color: #0F172A;
+}
+
+.train-tab-btn.active {
+  background: #2563EB;
+  color: #FFFFFF;
+  box-shadow: 0 1px 2px rgba(37, 99, 235, 0.2);
+}
+
+.time-window-dropdown {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--border-radius-xs);
+  padding: 0.3rem 0.65rem;
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  outline: none;
+}
+
+.train-table-wrapper {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 420px;
+  min-height: 200px;
+  min-width: 0;
+}
+
+.train-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.74rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.train-table thead th {
+  background: #F8FAFC;
+  color: #475569;
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-transform: capitalize;
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.train-table tbody td {
+  padding: 0.52rem 0.75rem;
+  border-bottom: 1px solid #F1F5F9;
+  color: #334155;
+  vertical-align: middle;
+}
+
+.train-table tbody tr {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.train-table tbody tr:hover {
+  background: #F8FAFC;
+}
+
+.train-table tbody tr.active-train-row {
+  background: #EFF6FF !important;
+  border-left: 3px solid #2563EB;
+}
+
+/* Status Indicators */
+.train-no-cell {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #0F172A;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.status-dot.green { background: #10B981; }
+.status-dot.orange { background: #F59E0B; }
+.status-dot.red { background: #EF4444; }
+
+.train-name-cell {
+  font-weight: 600;
+  color: #1E293B;
+}
+
+.route-cell {
+  color: #64748B;
+  font-size: 0.72rem;
+}
+
+.route-arrow {
+  color: #94A3B8;
+  margin: 0 0.2rem;
+}
+
+.location-cell {
+  font-weight: 600;
+  color: #334155;
+}
+
+.train-status-pill {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.train-status-pill.ontime {
+  background: #ECFDF5;
+  color: #059669;
+}
+
+.train-status-pill.delayed {
+  background: #FEF2F2;
+  color: #DC2626;
+}
+
+.delay-cell {
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+.delay-cell.zero { color: #64748B; }
+.delay-cell.delayed { color: #DC2626; }
+
+.eta-cell {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: #0F172A;
+}
+
+.row-action-btn {
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.75rem;
+  border-radius: var(--border-radius-xs);
+  transition: all 0.15s ease;
+}
+
+.row-action-btn:hover {
+  background: #E2E8F0;
+  color: #334155;
+}
+
+/* --------------------------------------------------------------------------
+   5. BOTTOM 3-COLUMN ANALYTICS GRID
+   Col 1: Section Congestion (Live) (~28%)
+   Col 2: Train Timeline Milestone Tracker (~40%)
+   Col 3: Train Details Card (~32%)
+   -------------------------------------------------------------------------- */
+.movements-bottom-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 28fr) minmax(0, 42fr) minmax(0, 30fr);
+  gap: 0.85rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.bottom-card-header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bottom-card-title {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #0F172A;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.card-title-badge-group,
+.bottom-card-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.badge-count-pill {
+  display: inline-flex;
+  align-items: center;
+  background: #EFF6FF;
+  color: #2563EB;
+  border: 1px solid #BFDBFE;
+  padding: 0.15rem 0.55rem;
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.table-empty-row td,
+.empty-state-card {
+  text-align: center;
+  padding: 2.5rem 1rem !important;
+  color: #64748B;
+}
+
+.empty-state-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.5rem 0;
+}
+
+.empty-state-wrap i {
+  font-size: 1.8rem;
+  color: #94A3B8;
+}
+
+.empty-state-wrap p {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #475569;
+  margin: 0;
+}
+
+.header-link-btn {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #2563EB;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.15s ease;
+}
+
+.header-link-btn:hover {
+  color: #1D4ED8;
+  text-decoration: underline;
+}
+
+/* --- Col 1: Section Congestion Table --- */
+.congestion-table-wrapper {
+  padding: 0.5rem 0.85rem;
+  min-width: 0;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.congestion-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.72rem;
+}
+
+.congestion-table th {
+  color: #64748B;
+  font-size: 0.67rem;
+  font-weight: 700;
+  text-align: left;
+  padding: 0.45rem 0.45rem;
+  border-bottom: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.congestion-table td {
+  padding: 0.45rem 0.45rem;
+  border-bottom: 1px solid #F8FAFC;
+  vertical-align: middle;
+}
+
+.congestion-section-name {
+  font-weight: 600;
+  color: #1E293B;
+  white-space: nowrap;
+}
+
+.congestion-counts {
+  font-family: var(--font-mono);
+  color: #475569;
+  white-space: nowrap;
+}
+
+.congestion-bar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.progress-track {
+  flex: 1;
+  height: 6px;
+  background: #E2E8F0;
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+}
+
+.progress-fill.red { background: #EF4444; }
+.progress-fill.orange { background: #F97316; }
+.progress-fill.yellow { background: #F59E0B; }
+.progress-fill.green { background: #10B981; }
+
+.utilization-pct {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  width: 32px;
+  text-align: right;
+}
+
+.utilization-pct.red { color: #EF4444; }
+.utilization-pct.orange { color: #F97316; }
+.utilization-pct.yellow { color: #D97706; }
+.utilization-pct.green { color: #10B981; }
+
+/* --- Col 2: Train Timeline Milestone Tracker --- */
+.timeline-card-content {
+  padding: 0.85rem 1rem 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100% - 46px);
+  box-sizing: border-box;
+}
+
+.timeline-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.stoppages-count-pill {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border: 1px solid #DBEAFE;
+  border-radius: 9999px;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.btn-toggle-route,
+.btn-add-halt {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--border-radius-xs);
+  padding: 0.25rem 0.55rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-toggle-route:hover,
+.btn-add-halt:hover {
+  background: #F1F5F9;
+  border-color: #94A3B8;
+  color: #0F172A;
+}
+
+.btn-add-halt {
+  background: #EFF6FF;
+  border-color: #BFDBFE;
+  color: #1D4ED8;
+}
+
+.btn-add-halt:hover {
+  background: #DBEAFE;
+  border-color: #93C5FD;
+}
+
+.timeline-scroll-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.6rem 0.5rem 0.4rem 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.milestone-stepper {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  min-width: 100%;
+  margin: 0;
+}
+
+.stepper-connecting-line {
+  position: absolute;
+  top: 48px;
+  height: 3px;
+  background: #E2E8F0;
+  z-index: 1;
+}
+
+.stepper-progress-fill {
+  position: absolute;
+  top: 48px;
+  height: 3px;
+  background: #10B981;
+  z-index: 2;
+  transition: width 0.3s ease;
+}
+
+.milestone-step-node {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  min-width: 76px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.milestone-step-node:hover {
+  transform: translateY(-2px);
+}
+
+.milestone-top-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 32px;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.milestone-station-name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #1E293B;
+  white-space: nowrap;
+  line-height: 1.15;
+}
+
+.milestone-time {
+  font-size: 0.67rem;
+  font-family: var(--font-mono);
+  color: #64748B;
+  margin-top: 1px;
+  white-space: nowrap;
+}
+
+.milestone-dot-wrap {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  width: 100%;
+}
+
+.milestone-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid #CBD5E1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.55rem;
+  transition: all 0.2s ease;
+}
+
+.milestone-step-node.completed .milestone-dot {
+  background: #10B981;
+  border-color: #10B981;
+  color: #FFFFFF;
+  width: 16px;
+  height: 16px;
+}
+
+.milestone-step-node.active .milestone-dot {
+  background: #2563EB;
+  border-color: #2563EB;
+  color: #FFFFFF;
+  width: 22px;
+  height: 22px;
+  font-size: 0.68rem;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.milestone-bottom-info {
+  min-height: 26px;
+  margin-top: 5px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.milestone-arriving-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #2563EB;
+  line-height: 1.2;
+  text-align: center;
+  display: block;
+  white-space: nowrap;
+}
+
+/* Timeline Bottom Stats Ribbon */
+.timeline-stats-ribbon {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--border-radius-xs);
+  padding: 0.6rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+}
+
+.timeline-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-stat-label {
+  font-size: 0.65rem;
+  color: #64748B;
+  font-weight: 600;
+}
+
+.timeline-stat-val {
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #0F172A;
+  margin-top: 0.1rem;
+}
+
+.timeline-stat-val.red { color: #DC2626; }
+
+/* --------------------------------------------------------------------------
+   MODAL DIALOG STYLES (For Dynamic Add Stoppage)
+   -------------------------------------------------------------------------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-dialog {
+  background: #FFFFFF;
+  border-radius: var(--border-radius-md);
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-header {
+  padding: 0.85rem 1.15rem;
+  background: #F8FAFC;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.modal-icon {
+  color: #1D4ED8;
+  font-size: 1.15rem;
+}
+
+.modal-title-group h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.modal-close-btn {
+  font-size: 1.35rem;
+  color: #64748B;
+  background: none;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-form {
+  padding: 1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form-group label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.45rem 0.65rem;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--border-radius-xs);
+  font-size: 0.76rem;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #2563EB;
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.btn-cancel {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--border-radius-xs);
+  padding: 0.45rem 0.9rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+}
+
+.btn-submit {
+  background: #1D4ED8;
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--border-radius-xs);
+  padding: 0.45rem 1rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-submit:hover {
+  background: #1E40AF;
+}
+
+.milestone-station-name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #1E293B;
+  margin-top: 0.5rem;
+}
+
+.milestone-time {
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  color: #64748B;
+  margin-top: 0.15rem;
+}
+
+.milestone-arriving-note {
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: #2563EB;
+  margin-top: 0.15rem;
+}
+
+/* Timeline Bottom Stats Ribbon */
+.timeline-stats-ribbon {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--border-radius-xs);
+  padding: 0.6rem 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+}
+
+.timeline-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-stat-label {
+  font-size: 0.65rem;
+  color: #64748B;
+  font-weight: 600;
+}
+
+.timeline-stat-val {
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #0F172A;
+  margin-top: 0.1rem;
+}
+
+.timeline-stat-val.red { color: #DC2626; }
+
+/* --- Col 3: Train Details Card --- */
+.train-details-content {
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: calc(100% - 46px);
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.train-hero-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.train-loco-img-box {
+  width: 95px;
+  height: 65px;
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  border: 1px solid #CBD5E1;
+  background: #0F172A;
+  flex-shrink: 0;
+}
+
+.train-loco-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.train-profile-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.train-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.train-title-text {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.train-type-badge {
+  background: #EFF6FF;
+  color: #2563EB;
+  border-radius: 9999px;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.train-rake-specs {
+  font-size: 0.67rem;
+  color: #64748B;
+  margin-top: 0.2rem;
+}
+
+.train-live-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.45rem;
+  background: #F8FAFC;
+  border-radius: var(--border-radius-xs);
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #E2E8F0;
+  margin-top: 0.25rem;
+}
+
+.spec-cell-label {
+  font-size: 0.62rem;
+  color: #64748B;
+}
+
+.spec-cell-value {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-top: 0.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.train-details-footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #F1F5F9;
+  padding-top: 0.6rem;
+  font-size: 0.72rem;
+}
+
+.footer-stat-group {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.footer-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-stat-item .lbl {
+  font-size: 0.62rem;
+  color: #64748B;
+}
+
+.footer-stat-item .val {
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.footer-stat-item .val.green { color: #16A34A; }
+.footer-stat-item .val.red { color: #DC2626; }
+
+/* --------------------------------------------------------------------------
+   6. RESPONSIVE BREAKPOINTS
+   -------------------------------------------------------------------------- */
+@media (max-width: 1400px) {
+  .movements-kpi-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .movements-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .movements-main-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .movements-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .movements-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   7. DARK MODE THEME FOR TRAIN MOVEMENTS (PAGE 5)
+   ========================================================================== */
+body.theme-dark .movements-page-main {
+  background: #0A1124 !important;
+  color: #F8FAFC !important;
+}
+
+body.theme-dark .movements-subheader-toolbar {
+  background: #111C2E !important;
+  border-color: #1E2D48 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.theme-dark .movements-kpi-card {
+  background: #111C2E !important;
+  border-color: #1E2D48 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.theme-dark .movements-kpi-card .kpi-val,
+body.theme-dark .movements-kpi-card .kpi-num {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .movements-kpi-card .kpi-label {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .dashboard-card,
+body.theme-dark .movements-main-grid > .dashboard-card,
+body.theme-dark .movements-bottom-grid > .dashboard-card {
+  background: #111C2E !important;
+  border-color: #1E2D48 !important;
+  color: #F8FAFC !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.theme-dark .card-header,
+body.theme-dark .bottom-card-header {
+  border-bottom-color: #1E2D48 !important;
+}
+
+body.theme-dark .card-title,
+body.theme-dark .bottom-card-title {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .movements-map-viewport {
+  background: radial-gradient(circle at 50% 50%, #111C2E 0%, #0A1124 100%) !important;
+}
+
+body.theme-dark .telemetry-coming-soon h3,
+body.theme-dark .telemetry-title {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .telemetry-desc {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .train-table th,
+body.theme-dark .congestion-table th {
+  background: #152238 !important;
+  color: #93C5FD !important;
+  border-color: #1E2D48 !important;
+}
+
+body.theme-dark .train-table td,
+body.theme-dark .congestion-table td {
+  color: #E2E8F0 !important;
+  border-color: #1E2D48 !important;
+}
+
+body.theme-dark .train-table tr:hover td {
+  background: rgba(37, 99, 235, 0.1) !important;
+}
+
+body.theme-dark .train-table tbody tr.active-train-row {
+  background-color: rgba(37, 99, 235, 0.22) !important;
+  border-left: 3px solid #3B82F6 !important;
+}
+
+body.theme-dark .train-no-cell,
+body.theme-dark .train-no {
+  color: #60A5FA !important;
+}
+
+body.theme-dark .train-name-cell,
+body.theme-dark .train-name {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .location-cell,
+body.theme-dark .route-cell,
+body.theme-dark .eta-cell {
+  color: #E2E8F0 !important;
+}
+
+body.theme-dark .timeline-stats-ribbon {
+  background: #152238 !important;
+  border-color: #1E2D48 !important;
+}
+
+body.theme-dark .timeline-stat-val {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .timeline-stat-label {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .train-live-specs-grid {
+  background: #152238 !important;
+  border-color: #1E2D48 !important;
+}
+
+body.theme-dark .spec-cell-value {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .spec-cell-label {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .congestion-section-name {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .congestion-counts {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .milestone-station-name {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .milestone-time {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .modal-dialog {
+  background: #111C2E !important;
+  border: 1px solid #1E2D48 !important;
+  color: #F8FAFC !important;
+}
+
+body.theme-dark .modal-header {
+  background: #152238 !important;
+  border-bottom-color: #1E2D48 !important;
+}
+
+body.theme-dark .modal-title-group h3 {
+  color: #FFFFFF !important;
+}
+
+/* Movements Map Status & Legend Ribbon Dark Mode */
+body.theme-dark .movements-legend-bar {
+  background: #152238 !important;
+  border-bottom: 1px solid #1E2D48 !important;
+}
+
+body.theme-dark .legend-pill-item {
+  color: #CBD5E1 !important;
+}
+
+body.theme-dark .live-view-dropdown-wrapper {
+  background: #152238 !important;
+  border: 1px solid #23354E !important;
+}
+
+body.theme-dark .live-view-dropdown-wrapper select {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .live-view-dropdown-wrapper select option {
+  background: #111C2E !important;
+  color: #FFFFFF !important;
+}
+
+/* Movements Top KPI Icon Boxes Dark Mode */
+body.theme-dark .movements-kpi-card .kpi-icon-box.blue {
+  background: rgba(37, 99, 235, 0.22) !important;
+  color: #60A5FA !important;
+  border: 1px solid rgba(59, 130, 246, 0.4) !important;
+}
+
+body.theme-dark .movements-kpi-card .kpi-icon-box.purple {
+  background: rgba(124, 58, 237, 0.22) !important;
+  color: #A78BFA !important;
+  border: 1px solid rgba(139, 92, 246, 0.4) !important;
+}
+
+body.theme-dark .movements-kpi-card .kpi-icon-box.green {
+  background: rgba(16, 185, 129, 0.22) !important;
+  color: #34D399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+}
+
+body.theme-dark .movements-kpi-card .kpi-icon-box.red {
+  background: rgba(239, 68, 68, 0.22) !important;
+  color: #F87171 !important;
+  border: 1px solid rgba(239, 68, 68, 0.4) !important;
+}
+
+/* Train Movements Table Row Hover (No White Glare) */
+body.theme-dark .train-table tbody tr:hover,
+body.theme-dark .train-table tbody tr:hover td {
+  background-color: rgba(37, 99, 235, 0.15) !important;
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .congestion-table tbody tr:hover,
+body.theme-dark .congestion-table tbody tr:hover td {
+  background-color: rgba(37, 99, 235, 0.15) !important;
+  color: #FFFFFF !important;
+}
+

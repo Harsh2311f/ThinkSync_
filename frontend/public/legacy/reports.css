@@ -1,0 +1,1265 @@
+/**
+ * ==============================================================================
+ * INDIAN RAILWAYS - JHARKHAND DIVISION
+ * PAGE 8: REPORTS & ANALYTICS DASHBOARD STYLESHEET (reports.css)
+ * ==============================================================================
+ */
+
+/* --------------------------------------------------------------------------
+   1. REPORTS PAGE MAIN CANVAS & SUBHEADER TOOLBAR
+   -------------------------------------------------------------------------- */
+.reports-page-main {
+  padding: 1.15rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+/* Subheader Toolbar */
+.reports-subheader-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  padding: 0.85rem 1.25rem;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--border-radius-md, 12px);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+  box-sizing: border-box;
+}
+
+.reports-subheader-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.reports-icon-badge {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+  flex-shrink: 0;
+}
+
+.reports-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reports-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.reports-subtitle {
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: #64748B;
+  margin: 0;
+}
+
+/* Subheader Controls */
+.reports-subheader-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.reports-select-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--border-radius-sm, 8px);
+  padding: 0.4rem 0.75rem;
+  gap: 0.45rem;
+  font-size: 0.76rem;
+  color: #334155;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.reports-select-wrapper:focus-within {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.reports-select-wrapper .select-icon {
+  color: #64748B;
+  font-size: 0.8rem;
+}
+
+.reports-select-wrapper select {
+  background: transparent;
+  border: none;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #1E293B;
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+}
+
+.btn-generate-report {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  border: 1px solid #1D4ED8;
+  border-radius: var(--border-radius-sm, 8px);
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.25);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-generate-report:hover {
+  background: linear-gradient(135deg, #1D4ED8 0%, #1E40AF 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.35);
+}
+
+.btn-generate-report:active {
+  transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   2. ROW 1: TOP 5 KPI SUMMARY METRIC CARDS
+   -------------------------------------------------------------------------- */
+.reports-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.85rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.reports-kpi-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--border-radius-md, 12px);
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  box-sizing: border-box;
+  min-width: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reports-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+}
+
+.kpi-icon-square {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.kpi-icon-square.red {
+  background: #FEF2F2;
+  color: #EF4444;
+  border: 1px solid #FEE2E2;
+}
+
+.kpi-icon-square.green {
+  background: #ECFDF5;
+  color: #10B981;
+  border: 1px solid #D1FAE5;
+}
+
+.kpi-icon-square.blue {
+  background: #EFF6FF;
+  color: #2563EB;
+  border: 1px solid #DBEAFE;
+}
+
+.kpi-icon-square.purple {
+  background: #FAF5FF;
+  color: #8B5CF6;
+  border: 1px solid #EDE9FE;
+}
+
+.kpi-text-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.kpi-label-text {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #64748B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpi-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin: 1px 0 2px;
+}
+
+.kpi-number {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1;
+  font-family: inherit;
+}
+
+.kpi-trend-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 4px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.kpi-trend-pill.up {
+  color: #059669;
+  background: #ECFDF5;
+}
+
+.kpi-trend-pill.down {
+  color: #059669; /* In railway reports, downtime & delays going down is positive/green */
+  background: #ECFDF5;
+}
+
+.kpi-footer-subtext {
+  font-size: 0.68rem;
+  color: #94A3B8;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --------------------------------------------------------------------------
+   3. GENERAL CARD ARCHITECTURE & ROW GRIDS
+   -------------------------------------------------------------------------- */
+.reports-row-grid {
+  display: grid;
+  gap: 0.85rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Row 2: 3-column (Weekly Plan, Monthly Trend, KPIs Donut) */
+.reports-row2-grid {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1.15fr) minmax(0, 1.35fr);
+}
+
+/* Row 3: 3-column (Dept Completion, Downtime Trends, Recent Reports) */
+.reports-row3-grid {
+  grid-template-columns: minmax(0, 1.22fr) minmax(0, 1.12fr) minmax(0, 1.26fr);
+}
+
+/* Row 4: 2-column (Historical Insights 60%, Export Actions 40%) */
+.reports-row4-grid {
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1.35fr);
+}
+
+.dashboard-card.reports-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--border-radius-md, 12px);
+  padding: 1rem 1.15rem;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.card-header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #F1F5F9;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.card-header-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.card-header-link {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #2563EB;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.15s ease;
+}
+
+.card-header-link:hover {
+  color: #1D4ED8;
+  text-decoration: underline;
+}
+
+.card-header-dropdown {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Legend items bar */
+.chart-legend-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 0.68rem;
+  color: #64748B;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.legend-square-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.legend-sq {
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.legend-line-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.legend-line-symbol {
+  width: 14px;
+  height: 2px;
+  background: #F59E0B;
+  position: relative;
+  display: inline-block;
+}
+
+.legend-line-symbol::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   4. ROW 2 VISUALIZATIONS: WEEKLY PLAN & MONTHLY TREND CHARTS
+   -------------------------------------------------------------------------- */
+.chart-canvas-container {
+  width: 100%;
+  height: 195px;
+  position: relative;
+  min-width: 0;
+}
+
+.chart-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.axis-text {
+  font-size: 9.5px;
+  fill: #64748B;
+  font-weight: 500;
+}
+
+.axis-gridline {
+  stroke: #F1F5F9;
+  stroke-dasharray: 2, 2;
+  stroke-width: 1;
+}
+
+.chart-bar {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.chart-bar:hover {
+  opacity: 0.85;
+}
+
+.chart-trendline {
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.chart-dot {
+  stroke-width: 2;
+  stroke: #FFFFFF;
+  cursor: pointer;
+  transition: r 0.2s ease;
+}
+
+.chart-dot:hover {
+  r: 5;
+}
+
+/* --------------------------------------------------------------------------
+   5. ROW 2 COL 3: 4 CIRCULAR DONUT GAUGES (KPIS)
+   -------------------------------------------------------------------------- */
+.kpi-donuts-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 0.4rem 0;
+  height: 100%;
+  align-items: center;
+}
+
+.kpi-donut-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
+}
+
+.kpi-donut-svg-wrap {
+  position: relative;
+  width: 72px;
+  height: 72px;
+}
+
+.kpi-donut-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.kpi-donut-bg-ring {
+  fill: none;
+  stroke: #F1F5F9;
+  stroke-width: 6;
+}
+
+.kpi-donut-fill-ring {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.kpi-donut-center-pct {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+
+.kpi-donut-label {
+  font-size: 0.69rem;
+  font-weight: 700;
+  color: #334155;
+  line-height: 1.25;
+  max-width: 85px;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kpi-donut-trend {
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: #059669;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   6. ROW 3 COL 1: DEPARTMENT-WISE TASK COMPLETION
+   -------------------------------------------------------------------------- */
+.dept-completion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.25rem 0;
+}
+
+.dept-row-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.72rem;
+}
+
+.dept-name-label {
+  width: 120px;
+  font-weight: 700;
+  color: #334155;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.dept-stacked-bar-track {
+  flex: 1;
+  height: 9px;
+  background: #F1F5F9;
+  border-radius: 9999px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+.dept-bar-seg {
+  height: 100%;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dept-bar-completed { background: #10B981; }
+.dept-bar-inprogress { background: #38BDF8; }
+.dept-bar-pending { background: #F87171; }
+
+.dept-total-pct {
+  width: 32px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #0F172A;
+  text-align: right;
+  flex-shrink: 0;
+  font-family: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   7. ROW 3 COL 2: DOWNTIME TRENDS AREA CHART
+   -------------------------------------------------------------------------- */
+.downtime-chart-wrapper {
+  width: 100%;
+  height: 195px;
+  position: relative;
+}
+
+.downtime-badge-tag {
+  position: absolute;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+.downtime-badge-red {
+  background: #EF4444;
+  right: 6px;
+  top: 68px;
+}
+
+.downtime-badge-blue {
+  background: #2563EB;
+  right: 6px;
+  top: 118px;
+}
+
+/* --------------------------------------------------------------------------
+   8. ROW 3 COL 3: RECENT REPORT CARDS
+   -------------------------------------------------------------------------- */
+.recent-reports-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  max-height: 235px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.report-card-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.65rem;
+  border-radius: var(--border-radius-sm, 8px);
+  background: #F8FAFC;
+  border: 1px solid #F1F5F9;
+  transition: all 0.15s ease;
+  gap: 0.5rem;
+}
+
+.report-card-item:hover {
+  background: #FFFFFF;
+  border-color: #CBD5E1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+}
+
+.report-item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.report-file-icon {
+  font-size: 1.15rem;
+  color: #2563EB;
+  flex-shrink: 0;
+}
+
+.report-meta-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.report-main-name {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #0F172A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.report-sub-desc {
+  font-size: 0.65rem;
+  color: #64748B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.report-timestamp {
+  font-size: 0.62rem;
+  color: #94A3B8;
+  white-space: nowrap;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.btn-report-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.btn-download-pdf {
+  background: #FEF2F2;
+  color: #DC2626;
+  border: 1px solid #FECACA;
+}
+
+.btn-download-pdf:hover {
+  background: #FEE2E2;
+}
+
+.btn-download-csv {
+  background: #ECFDF5;
+  color: #059669;
+  border: 1px solid #A7F3D0;
+}
+
+.btn-download-csv:hover {
+  background: #D1FAE5;
+}
+
+/* --------------------------------------------------------------------------
+   9. ROW 4: HISTORICAL INSIGHTS & EXPORT REPORTS
+   -------------------------------------------------------------------------- */
+/* Historical Insights */
+.historical-insights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.insight-pill-box {
+  border-radius: 9px;
+  padding: 0.75rem 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  border: 1px solid transparent;
+}
+
+.insight-pill-box.green {
+  background: #F0FDF4;
+  border-color: #DCFCE7;
+}
+
+.insight-pill-box.blue {
+  background: #EFF6FF;
+  border-color: #DBEAFE;
+}
+
+.insight-pill-box.purple {
+  background: #FAF5FF;
+  border-color: #EDE9FE;
+}
+
+.insight-icon-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.insight-icon-circle.green { background: #DCFCE7; color: #16A34A; }
+.insight-icon-circle.blue { background: #DBEAFE; color: #2563EB; }
+.insight-icon-circle.purple { background: #EDE9FE; color: #7C3AED; }
+
+.insight-text-col {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.insight-bold-highlight {
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.insight-bold-highlight.green { color: #16A34A; }
+.insight-bold-highlight.blue { color: #2563EB; }
+.insight-bold-highlight.purple { color: #7C3AED; }
+
+.insight-description {
+  font-size: 0.69rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+/* Export Actions */
+.export-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  margin-top: 0.35rem;
+}
+
+.btn-export-act {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  border-radius: var(--border-radius-sm, 8px);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.btn-export-act:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.btn-export-pdf {
+  background: #DC2626;
+  color: #FFFFFF;
+  border-color: #B91C1C;
+}
+
+.btn-export-csv {
+  background: #059669;
+  color: #FFFFFF;
+  border-color: #047857;
+}
+
+.btn-export-excel {
+  background: #2563EB;
+  color: #FFFFFF;
+  border-color: #1D4ED8;
+}
+
+.btn-export-schedule {
+  background: #FFFFFF;
+  color: #334155;
+  border-color: #CBD5E1;
+}
+
+.btn-export-schedule:hover {
+  background: #F8FAFC;
+  color: #0F172A;
+}
+
+/* --------------------------------------------------------------------------
+   10. INTERACTIVE MODAL DIALOGS
+   -------------------------------------------------------------------------- */
+.reports-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.reports-modal-overlay.open {
+  display: flex;
+}
+
+.reports-modal-dialog {
+  background: #FFFFFF;
+  border-radius: var(--border-radius-lg, 16px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 540px;
+  overflow: hidden;
+  animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.reports-modal-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.modal-badge-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.modal-badge-icon.blue-theme { background: #EFF6FF; color: #2563EB; }
+.modal-badge-icon.purple-theme { background: #FAF5FF; color: #7C3AED; }
+
+.reports-modal-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+}
+
+.reports-modal-subtitle {
+  font-size: 0.72rem;
+  color: #64748B;
+  margin: 0;
+}
+
+.reports-modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  color: #94A3B8;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.reports-modal-close-btn:hover {
+  color: #0F172A;
+  background: #F1F5F9;
+}
+
+.reports-modal-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.form-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.form-control {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  color: #1E293B;
+  outline: none;
+  font-family: inherit;
+}
+
+.form-control:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+.reports-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #F1F5F9;
+}
+
+/* --------------------------------------------------------------------------
+   11. RESPONSIVE BREAKPOINTS (Anti-Overflow Guarantees)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1366px) {
+  .reports-row2-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .reports-row2-grid #card-kpi-donuts {
+    grid-column: span 2;
+  }
+
+  .reports-row3-grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+
+  .reports-row3-grid #card-recent-reports {
+    grid-column: span 2;
+  }
+
+  .reports-row4-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 1080px) {
+  .reports-kpi-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .reports-row2-grid,
+  .reports-row3-grid,
+  .reports-row4-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .reports-row2-grid #card-kpi-donuts,
+  .reports-row3-grid #card-recent-reports {
+    grid-column: span 1 !important;
+  }
+
+  .historical-insights-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .reports-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi-donuts-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .export-actions-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   10. DARK MODE THEME FOR REPORTS & ANALYTICS (PAGE 8)
+   ========================================================================== */
+body.theme-dark .reports-page-main {
+  background: #0A1124 !important;
+  color: #F8FAFC !important;
+}
+
+body.theme-dark .reports-subheader-toolbar {
+  background: #111C2E !important;
+  border-color: #1E2D48 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.theme-dark .reports-title {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .reports-subtitle {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .reports-select-wrapper {
+  background: #152238 !important;
+  border-color: #23354E !important;
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .reports-select-wrapper select {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .reports-select-wrapper select option {
+  background-color: #111C2E !important;
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .reports-kpi-card {
+  background: #111C2E !important;
+  border-color: #1E2D48 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.theme-dark .reports-kpi-card .kpi-number {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .reports-kpi-card .kpi-label-text {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .reports-kpi-card .kpi-footer-sub {
+  color: #64748B !important;
+}
+
+body.theme-dark .dashboard-card,
+body.theme-dark .reports-card {
+  background: #111C2E !important;
+  border-color: #1E2D48 !important;
+  color: #F8FAFC !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.theme-dark .card-header-flex {
+  border-bottom-color: #1E2D48 !important;
+}
+
+body.theme-dark .card-header-title {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .report-card-item {
+  background: #152238 !important;
+  border-color: #1E2D48 !important;
+}
+
+body.theme-dark .report-item-title,
+body.theme-dark .report-card-name {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .report-item-sub,
+body.theme-dark .report-card-desc {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .insight-pill-box.green {
+  background: rgba(16, 185, 129, 0.12) !important;
+  border-color: rgba(34, 197, 94, 0.25) !important;
+}
+body.theme-dark .insight-pill-box.green .insight-stat {
+  color: #4ADE80 !important;
+}
+
+body.theme-dark .insight-pill-box.blue {
+  background: rgba(37, 99, 235, 0.12) !important;
+  border-color: rgba(59, 130, 246, 0.25) !important;
+}
+body.theme-dark .insight-pill-box.blue .insight-stat {
+  color: #60A5FA !important;
+}
+
+body.theme-dark .insight-pill-box.purple {
+  background: rgba(147, 51, 234, 0.12) !important;
+  border-color: rgba(168, 85, 247, 0.25) !important;
+}
+body.theme-dark .insight-pill-box.purple .insight-stat {
+  color: #C084FC !important;
+}
+
+body.theme-dark .insight-desc {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .axis-text {
+  fill: #94A3B8 !important;
+}
+
+body.theme-dark .dept-name-label {
+  color: #CBD5E1 !important;
+}
+
+body.theme-dark .dept-total-pct {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .dept-stacked-bar-track {
+  background: #152238 !important;
+}
+
+body.theme-dark .kpi-donut-val,
+body.theme-dark .kpi-donut-center-pct {
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+}
+
+body.theme-dark .kpi-donut-title,
+body.theme-dark .kpi-donut-label {
+  color: #CBD5E1 !important;
+}
+
+body.theme-dark .kpi-donut-bg-ring {
+  stroke: #1E2D48 !important;
+}
+
+/* Reports Page Subheader Icon & Top KPI Icon Squares */
+body.theme-dark .reports-icon-badge {
+  background: rgba(37, 99, 235, 0.22) !important;
+  color: #60A5FA !important;
+  border: 1px solid rgba(59, 130, 246, 0.4) !important;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.25) !important;
+}
+
+body.theme-dark .kpi-icon-square.red {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #F87171 !important;
+  border: 1px solid rgba(239, 68, 68, 0.35) !important;
+}
+
+body.theme-dark .kpi-icon-square.green {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #34D399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+}
+
+body.theme-dark .kpi-icon-square.blue {
+  background: rgba(37, 99, 235, 0.2) !important;
+  color: #60A5FA !important;
+  border: 1px solid rgba(59, 130, 246, 0.35) !important;
+}
+
+body.theme-dark .kpi-icon-square.purple {
+  background: rgba(124, 58, 237, 0.2) !important;
+  color: #A78BFA !important;
+  border: 1px solid rgba(139, 92, 246, 0.35) !important;
+}
+
+/* Recent Report Cards Box Text Visibility & Dark Mode Hover */
+body.theme-dark .report-main-name {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .report-sub-desc {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .report-timestamp {
+  color: #CBD5E1 !important;
+}
+
+body.theme-dark .report-card-item:hover {
+  background: rgba(37, 99, 235, 0.15) !important;
+}
+
+body.theme-dark .chart-dot {
+  stroke: #111C2E !important;
+}
+

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <title>ThinkSync - AI-Powered Maintenance Planning & Block Optimization | Indian Railways</title> -->
+  
+  <!-- SEO & Application Metadata -->
+  <meta name="description" content="AI-Powered Maintenance Planning & Block Optimization for Indian Railways - Jharkhand Division. Smarter Blocks. Safer Tracks.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans for UI and JetBrains Mono for numbers/codes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons for railway icons, indicators, and controls -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Main Application Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Global Theme & Sidebar Synchronizer -->
+  <script src="theme-sync.js"></script>
+</head>
+<body>
+  
+  <!-- ========================================================================== -->
+  <!-- MAIN APPLICATION LAYOUT WRAPPER                                            -->
+  <!-- Splits screen into Left Sidebar and Right Main Content Area                -->
+  <!-- ========================================================================== -->
+  <div class="app-layout">
+    
+    <!-- ======================================================================== -->
+    <!-- 1. LEFT SIDEBAR NAVIGATION                                               -->
+    <!-- Contains Brand Logo, Navigation Tabs, and Bottom Indian Railways Card     -->
+    <!-- All navigation and bottom card data is managed via JavaScript/CSS        -->
+    <!-- ======================================================================== -->
+    <aside class="sidebar" id="sidebar">
+      
+      <!-- 1.1 Sidebar Header: Hamburger Show & Hide Toggle Button -->
+      <div class="sidebar-header-toggle" id="sidebar-header-toggle">
+        <button class="sidebar-toggle-btn" id="sidebar-toggle-btn" aria-label="Toggle Navigation Sidebar" title="Show / Hide Sidebar">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <span class="sidebar-toggle-label">Navigation</span>
+      </div>
+
+      <!-- 1.2 Navigation Menu Links -->
+      <nav class="sidebar-nav" id="sidebar-nav-container" aria-label="Main navigation">
+        <a href="#dashboard" class="nav-item active" data-tab="dashboard" data-tooltip="Dashboard">
+          <i class="fa-solid fa-house"></i>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="map.html" class="nav-item" data-tab="map" data-tooltip="Railway Health Map">
+          <i class="fa-solid fa-location-dot"></i>
+          <span class="nav-label">Railway Health Map</span>
+        </a>
+        <a href="calendar.html" class="nav-item" data-tab="calendar" data-tooltip="Block Calendar">
+          <i class="fa-solid fa-calendar-days"></i>
+          <span class="nav-label">Block Calendar</span>
+        </a>
+        <a href="tasks.html" class="nav-item" data-tab="tasks" data-tooltip="Maintenance Tasks">
+          <i class="fa-solid fa-clipboard-list"></i>
+          <span class="nav-label">Maintenance Tasks</span>
+        </a>
+        <a href="movements.html" class="nav-item" data-tab="movements" data-tooltip="Train Movements">
+          <i class="fa-solid fa-train"></i>
+          <span class="nav-label">Train Movements</span>
+        </a>
+        <a href="resources.html" class="nav-item" data-tab="resources" data-tooltip="Resources">
+          <i class="fa-solid fa-network-wired"></i>
+          <span class="nav-label">Resources</span>
+        </a>
+        <a href="optimization.html" class="nav-item" data-tab="optimization" data-tooltip="Optimization">
+          <i class="fa-solid fa-chart-line"></i>
+          <span class="nav-label">Optimization</span>
+        </a>
+        <a href="reports.html" class="nav-item" data-tab="reports" data-tooltip="Reports">
+          <i class="fa-solid fa-file-lines"></i>
+          <span class="nav-label">Reports</span>
+        </a>
+        <a href="alerts.html" class="nav-item" data-tab="alerts" data-tooltip="Alerts">
+          <i class="fa-solid fa-bell"></i>
+          <span class="nav-label">Alerts</span>
+        </a>
+        <a href="settings.html" class="nav-item" data-tab="settings" data-tooltip="Settings">
+          <i class="fa-solid fa-gear"></i>
+          <span class="nav-label">Settings</span>
+        </a>
+      </nav>
+
+      <!-- 1.3 Bottom Train Card (Indian Railways Image, Slogan & National Flag) -->
+      <!-- Purpose: Injected dynamically by renderSidebarAndFooter() in script.js -->
+      <div class="sidebar-train-card" id="sidebar-train-card">
+        <!-- Dynamic content: Train background image, 'Better Planning Safer Journeys' and Indian Flag -->
+      </div>
+      
+    </aside>
+
+    <!-- ======================================================================== -->
+    <!-- 2. MAIN WORKSPACE WRAPPER (Top Header + Dashboard Grid + Footer)         -->
+    <!-- ======================================================================== -->
+    <div class="main-wrapper">
+      
+      <!-- ====================================================================== -->
+      <!-- 2.1 TOP HEADER BAR                                                     -->
+      <!-- Displays division mission statement, live search, notifications, & user-->
+      <!-- ====================================================================== -->
+      <header class="top-header">
+        
+        <!-- Header Left -->
+        <div class="header-left"></div>
+
+        <!-- Header Right: Search, Notifications, Profile -->
+        <div class="header-right">
+          
+          <!-- Live Interactive Search Box -->
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="global-search" placeholder="Search section, station, train, task..." autocomplete="off">
+            <!-- Search dropdown suggestions container populated by JavaScript -->
+            <div class="search-results-dropdown" id="search-dropdown"></div>
+          </div>
+
+          <!-- Notification Bell with Counter Badge -->
+          <div class="notification-wrapper">
+            <button class="icon-btn" id="notif-btn" aria-label="View System Notifications">
+              <i class="fa-solid fa-bell"></i>
+              <!-- Notification counter badge populated dynamically by JS -->
+              <span class="notif-badge" id="header-notif-badge"></span>
+            </button>
+            
+            <!-- Notification Dropdown Panel -->
+            <div class="notif-dropdown" id="notif-dropdown">
+              <div class="notif-header">
+                <h3>System Notifications</h3>
+                <span class="badge badge-danger" id="notif-dropdown-count"></span>
+              </div>
+              <!-- Notification items injected by JavaScript -->
+              <div class="notif-list" id="notif-list-container"></div>
+              <div class="notif-footer">
+                <a href="#alerts" id="view-all-notifs">View All Alerts &rarr;</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Profile Badge: Injected dynamically by renderUserProfile() in script.js -->
+          <div class="user-profile" id="user-profile-container">
+            <!-- Dynamic avatar, user name, role, and dropdown arrow -->
+          </div>
+        </div>
+      </header>
+
+      <!-- ====================================================================== -->
+      <!-- 2.2 DASHBOARD CONTENT CANVAS                                           -->
+      <!-- No data is hardcoded here. Every container is populated by JavaScript! -->
+      <!-- When data is not available, it displays 'Not Found' gracefully         -->
+      <!-- ====================================================================== -->
+      <main class="dashboard-content" id="dashboard-content">
+        
+        <!-- ==================================================================== -->
+        <!-- ROW 1: TOP 6 KPI METRIC CARDS                                        -->
+        <!-- Container for Total Sections, Pending Tasks, Blocks, Trains Affected, -->
+        <!-- Resource Utilization, and Carbon Impact                              -->
+        <!-- Injected dynamically by renderKPICards() in script.js                 -->
+        <!-- ==================================================================== -->
+        <section class="kpi-grid" id="kpi-grid-container">
+          <!-- 6 Metric Cards injected via JavaScript (or 'Not Found' fallback) -->
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- ROW 2: MIDDLE SECTION (3 MAIN COLUMNS)                               -->
+        <!-- Col 1: Jharkhand Railway Network Live Health Map (Coming Soon)       -->
+        <!-- Col 2: Critical Alerts                                               -->
+        <!-- Col 3: Executive Summary & AI Plan Suggestions                       -->
+        <!-- ==================================================================== -->
+        <section class="middle-layout">
+          
+          <!-- ------------------------------------------------------------------ -->
+          <!-- MIDDLE COL 1: LIVE RAILWAY HEALTH MAP WIDGET (COMING SOON)         -->
+          <!-- Map removed per user request: Displays professional 'Coming Soon'  -->
+          <!-- Injected dynamically by renderRailwayMap() in script.js            -->
+          <!-- ------------------------------------------------------------------ -->
+          <div class="card map-widget">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h2 class="card-title">Jharkhand Railway Network &ndash; Live Health Map</h2>
+                <span class="badge badge-warning" id="map-status-pill">
+                  <i class="fa-solid fa-clock"></i> Coming Soon
+                </span>
+                <!-- Telemetry integration status updated by JS -->
+                <span class="timestamp" id="map-timestamp">Telemetry Module Under Deployment</span>
+              </div>
+              <div class="card-actions">
+                <button class="icon-btn-sm" id="notify-map-btn" title="Get Notified Upon Release">
+                  <i class="fa-solid fa-bell"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Status ribbon banner: Populated dynamically by JS -->
+            <div class="map-legend" id="map-legend-container"></div>
+
+            <!-- Coming Soon Container: Populated dynamically by renderRailwayMap() -->
+            <div class="map-viewport" id="map-viewport">
+              <!-- 'Coming Soon' graphic and description rendered via JavaScript -->
+            </div>
+          </div>
+
+          <!-- ------------------------------------------------------------------ -->
+          <!-- MIDDLE COL 2: CRITICAL ALERTS WIDGET                               -->
+          <!-- Displays high risk sections, machine shortages, replanning triggers-->
+          <!-- Populated dynamically by renderCriticalAlerts() in script.js       -->
+          <!-- Shows 'Not Found' if no alert data is available                    -->
+          <!-- ------------------------------------------------------------------ -->
+          <div class="card alerts-widget">
+            <div class="card-header">
+              <h2 class="card-title">Critical Alerts</h2>
+              <a href="#alerts" class="view-all-link">View All <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Dynamic Alerts List Container -->
+            <div class="alerts-list" id="critical-alerts-container">
+              <!-- Alert cards injected dynamically by JavaScript -->
+            </div>
+          </div>
+
+          <!-- ------------------------------------------------------------------ -->
+          <!-- MIDDLE COL 3: EXECUTIVE SUMMARY & AI PLAN SUGGESTIONS              -->
+          <!-- Populated dynamically by renderExecutiveSummary() & renderAIPlans()-->
+          <!-- Shows 'Not Found' if data is missing without breaking the cards    -->
+          <!-- ------------------------------------------------------------------ -->
+          <div class="right-column-stack">
+            
+            <!-- 3.1 Today's Executive Summary Card -->
+            <div class="card summary-card">
+              <div class="card-header border-none">
+                <h2 class="card-title">Today's Executive Summary</h2>
+                <!-- Date updated dynamically by live calendar logic in JS -->
+                <span class="date-text" id="exec-date"></span>
+              </div>
+
+              <!-- Status Banner (e.g. Network is Stable) injected by JS -->
+              <div class="summary-status-box" id="exec-status-box"></div>
+
+              <!-- 4 Mini KPI Badges (Critical, Moderate, Blocks, On-Time) injected by JS -->
+              <div class="mini-kpi-grid" id="exec-mini-kpis"></div>
+            </div>
+
+            <!-- 3.2 AI Plan Suggestions Card (Plan A, Plan B, Plan C) -->
+            <div class="card plan-card">
+              <div class="card-header">
+                <h2 class="card-title">AI Plan Suggestions</h2>
+                <a href="optimization.html" class="view-all-link">View All <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+
+              <!-- 3 Side-by-Side AI Plan Option Cards injected dynamically by JS -->
+              <div class="plans-grid" id="ai-plans-container">
+                <!-- Plan A, Plan B, and Plan C cards rendered via JavaScript -->
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- ROW 3: BOTTOM ROW (3 EQUAL / PROPORTIONAL COLUMNS)                   -->
+        <!-- Col 1: Maintenance Task Overview (Donut Chart)                       -->
+        <!-- Col 2: Train Movements (Next 24 Hours Table)                         -->
+        <!-- Col 3: Optimization Summary (4 KPI Tiles)                            -->
+        <!-- Shows 'Not Found' for missing data while preserving cards and layout -->
+        <!-- ==================================================================== -->
+        <section class="bottom-layout">
+          
+          <!-- ------------------------------------------------------------------ -->
+          <!-- BOTTOM COL 1: MAINTENANCE TASK OVERVIEW                            -->
+          <!-- Visual SVG Donut chart with priority breakdown                     -->
+          <!-- Injected dynamically by renderTaskDonutChart() in script.js        -->
+          <!-- ------------------------------------------------------------------ -->
+          <div class="card task-overview-card">
+            <div class="card-header">
+              <h2 class="card-title">Maintenance Task Overview</h2>
+              <a href="#tasks" class="view-all-link">View All <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <!-- Dynamic Donut Chart Container (SVG Slices & Legend) -->
+            <div class="donut-chart-container" id="donut-chart-container">
+              <!-- Donut SVG and priority legend injected dynamically via JavaScript -->
+            </div>
+          </div>
+
+          <!-- ------------------------------------------------------------------ -->
+          <!-- BOTTOM COL 2: TRAIN MOVEMENTS (NEXT 24 HOURS)                      -->
+          <!-- Real-time train schedules, routes, status badges, and ETA          -->
+          <!-- Injected dynamically by renderTrainMovements() in script.js        -->
+          <!-- ------------------------------------------------------------------ -->
+          <div class="card train-movements-card">
+            <div class="card-header">
+              <h2 class="card-title">Train Movements (Next 24 Hours)</h2>
+              <a href="#movements" class="view-all-link">View All <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table" id="trains-table">
+                <thead>
+                  <tr>
+                    <th>Train No.</th>
+                    <th>Type</th>
+                    <th>From &rarr; To</th>
+                    <th>Status</th>
+                    <th>ETA</th>
+                  </tr>
+                </thead>
+                <!-- Table rows generated dynamically by JavaScript -->
+                <tbody id="trains-table-body">
+                  <!-- Injected via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ------------------------------------------------------------------ -->
+          <!-- BOTTOM COL 3: OPTIMIZATION SUMMARY                                 -->
+          <!-- 4 Grid tiles: Delay Reduction, Cost Savings, Carbon, Feasibility   -->
+          <!-- Injected dynamically by renderOptimizationSummary() in script.js   -->
+          <!-- ------------------------------------------------------------------ -->
+          <div class="card optimization-summary-card">
+            <div class="card-header">
+              <h2 class="card-title">Optimization Summary</h2>
+              <a href="optimization.html" class="view-all-link">View Details <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 4 Optimization Tiles injected dynamically by JavaScript -->
+            <div class="opt-tiles-grid" id="opt-tiles-container">
+              <!-- 4 metric tiles injected via JavaScript -->
+            </div>
+          </div>
+
+        </section>
+      </main>
+
+      <!-- ====================================================================== -->
+      <!-- 2.3 BOTTOM FOOTER BANNER                                               -->
+      <!-- Executive motto and Indian Railways brand partnership statement        -->
+      <!-- Injected dynamically by renderSidebarAndFooter() in script.js          -->
+      <!-- ====================================================================== -->
+      <footer class="bottom-footer" id="app-bottom-footer">
+        <div class="footer-quote" id="footer-quote-container"></div>
+        <div class="footer-links" id="footer-links-container"></div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================== -->
+  <!-- 3. INTERACTIVE MODALS & DIALOGS                                            -->
+  <!-- ========================================================================== -->
+  
+  <!-- 3.1 AI Plan Detail & Execution Modal -->
+  <div class="modal-backdrop" id="plan-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-badge" id="modal-plan-badge"></span>
+          <h3 class="modal-title" id="modal-plan-title"></h3>
+        </div>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-metrics-bar">
+          <div class="metric-box">
+            <span class="m-val" id="m-blocks"></span>
+            <span class="m-lbl">Total Maintenance Blocks</span>
+          </div>
+          <div class="metric-box">
+            <span class="m-val" id="m-delay"></span>
+            <span class="m-lbl">Avg. Passenger Delay</span>
+          </div>
+          <div class="metric-box">
+            <span class="m-val" id="m-res"></span>
+            <span class="m-lbl">Resource Efficiency</span>
+          </div>
+          <div class="metric-box">
+            <span class="m-val" id="m-impact"></span>
+            <span class="m-lbl">Overall Network Impact</span>
+          </div>
+        </div>
+
+        <h4 class="modal-sub-heading">Proposed Schedule &amp; Block Windows</h4>
+        <div class="block-timeline-list" id="modal-timeline"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="modal-cancel-btn">Close</button>
+        <button class="btn btn-primary" id="modal-execute-btn">Apply Plan to Division</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.2 Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ========================================================================== -->
+  <!-- 4. JAVASCRIPT LOGIC ENGINE                                                 -->
+  <!-- Injects ALL data into the empty containers above & handles interactivity   -->
+  <!-- ========================================================================== -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alerts &amp; Early Warnings - Jharkhand Division | Indian Railways</title>
+  
+  <!-- SEO & Application Metadata -->
+  <meta name="description" content="Real-time alerts, early warning signals, defect tracking, and resource shortages for Jharkhand Division, Indian Railways.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans for UI and JetBrains Mono for codes/numbers -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Shared Application Stylesheet & Alerts Specific Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="alerts.css">
+  
+  <!-- Global Theme & Sidebar Synchronizer -->
+  <script src="theme-sync.js"></script>
+</head>
+<body>
+  
+  <!-- ========================================================================== -->
+  <!-- MAIN APPLICATION LAYOUT WRAPPER                                            -->
+  <!-- ========================================================================== -->
+  <div class="app-layout">
+    
+    <!-- ======================================================================== -->
+    <!-- 1. LEFT SIDEBAR NAVIGATION                                               -->
+    <!-- ======================================================================== -->
+    <aside class="sidebar" id="sidebar">
+      
+      <!-- 1.1 Sidebar Header: Hamburger Show & Hide Toggle Button -->
+      <div class="sidebar-header-toggle" id="sidebar-header-toggle">
+        <button class="sidebar-toggle-btn" id="sidebar-toggle-btn" aria-label="Toggle Navigation Sidebar" title="Show / Hide Sidebar">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <span class="sidebar-toggle-label">Navigation</span>
+      </div>
+
+      <!-- 1.2 Navigation Menu Links -->
+      <nav class="sidebar-nav" id="sidebar-nav-container" aria-label="Main navigation">
+        <a href="index.html" class="nav-item" data-tab="dashboard" data-tooltip="Dashboard">
+          <i class="fa-solid fa-house"></i>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="map.html" class="nav-item" data-tab="map" data-tooltip="Railway Health Map">
+          <i class="fa-solid fa-location-dot"></i>
+          <span class="nav-label">Railway Health Map</span>
+        </a>
+        <a href="calendar.html" class="nav-item" data-tab="calendar" data-tooltip="Block Calendar">
+          <i class="fa-solid fa-calendar-days"></i>
+          <span class="nav-label">Block Calendar</span>
+        </a>
+        <a href="tasks.html" class="nav-item" data-tab="tasks" data-tooltip="Maintenance Tasks">
+          <i class="fa-solid fa-clipboard-list"></i>
+          <span class="nav-label">Maintenance Tasks</span>
+        </a>
+        <a href="movements.html" class="nav-item" data-tab="movements" data-tooltip="Train Movements">
+          <i class="fa-solid fa-train"></i>
+          <span class="nav-label">Train Movements</span>
+        </a>
+        <a href="resources.html" class="nav-item" data-tab="resources" data-tooltip="Resources">
+          <i class="fa-solid fa-network-wired"></i>
+          <span class="nav-label">Resources</span>
+        </a>
+        <a href="optimization.html" class="nav-item" data-tab="optimization" data-tooltip="Optimization">
+          <i class="fa-solid fa-chart-line"></i>
+          <span class="nav-label">Optimization</span>
+        </a>
+        <a href="reports.html" class="nav-item" data-tab="reports" data-tooltip="Reports">
+          <i class="fa-solid fa-chart-column"></i>
+          <span class="nav-label">Reports</span>
+        </a>
+        <a href="alerts.html" class="nav-item active" data-tab="alerts" data-tooltip="Alerts">
+          <i class="fa-solid fa-bell"></i>
+          <span class="nav-label">Alerts</span>
+        </a>
+        <a href="settings.html" class="nav-item" data-tab="settings" data-tooltip="Settings">
+          <i class="fa-solid fa-gear"></i>
+          <span class="nav-label">Settings</span>
+        </a>
+      </nav>
+
+      <!-- 1.3 Bottom Train Branding Card -->
+      <div class="sidebar-train-card" id="sidebar-train-card"></div>
+      
+    </aside>
+
+    <!-- ======================================================================== -->
+    <!-- 2. MAIN WORKSPACE WRAPPER                                                -->
+    <!-- ======================================================================== -->
+    <div class="main-wrapper">
+      
+      <!-- 2.1 TOP HEADER BAR -->
+      <header class="top-header">
+        <div class="header-left"></div>
+
+        <div class="header-right">
+          <!-- Search Box -->
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="global-search" placeholder="Search alerts, defects, sections..." autocomplete="off">
+            <div class="search-results-dropdown" id="search-dropdown"></div>
+          </div>
+
+          <!-- Notification Bell -->
+          <div class="notification-wrapper">
+            <button class="icon-btn" id="notif-btn" aria-label="View System Notifications">
+              <i class="fa-solid fa-bell"></i>
+              <span class="notif-badge" id="header-notif-badge"></span>
+            </button>
+            <div class="notif-dropdown" id="notif-dropdown">
+              <div class="notif-header">
+                <h3>System Notifications</h3>
+                <span class="badge badge-danger" id="notif-dropdown-count"></span>
+              </div>
+              <div class="notif-list" id="notif-list-container"></div>
+              <div class="notif-footer">
+                <a href="#all-activity" id="view-all-notifs">View All Alerts &rarr;</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Profile -->
+          <div class="user-profile" id="user-profile-container"></div>
+        </div>
+      </header>
+
+      <!-- 2.2 ALERTS CONTENT CANVAS (100% Data-Driven Architecture) -->
+      <main class="alerts-page-main" id="alerts-page-main">
+        
+        <!-- SUBHEADER TOOLBAR: Page Title, Subtitle, Auto-Refresh Toggle & Export Button -->
+        <section class="alerts-subheader-toolbar" id="alerts-subheader-toolbar">
+          <div class="alerts-subheader-left">
+            <div class="alerts-icon-badge">
+              <i class="fa-solid fa-bell"></i>
+            </div>
+            <div class="alerts-title-wrap">
+              <h2 class="alerts-title">Alerts</h2>
+              <p class="alerts-subtitle">Real-time insights, early warnings and AI-driven alerts for safer, uninterrupted railway operations.</p>
+            </div>
+          </div>
+          
+          <div class="alerts-subheader-controls">
+            <!-- Auto-Refresh Control -->
+            <div class="auto-refresh-wrap">
+              <div class="auto-refresh-toggle-row">
+                <span class="refresh-indicator-dot"></span>
+                <span class="auto-refresh-label">Auto Refresh</span>
+                <label class="switch-toggle" aria-label="Toggle live auto-refresh">
+                  <input type="checkbox" id="auto-refresh-toggle" checked>
+                  <span class="slider-round"></span>
+                </label>
+              </div>
+              <span class="auto-refresh-subtext" id="last-updated-text">Last updated: 12 Sep 2026, 10:24 AM</span>
+            </div>
+
+            <!-- Export Alerts Action Button -->
+            <div class="export-dropdown-wrapper">
+              <button type="button" class="btn-export-dropdown" id="btn-export-alerts" aria-expanded="false" aria-haspopup="true">
+                Export Alerts <i class="fa-solid fa-chevron-down" style="font-size: 0.68rem; margin-left: 4px;"></i>
+              </button>
+              <div class="export-menu-dropdown" id="export-menu-dropdown">
+                <a href="#export-pdf" id="menu-export-pdf"><i class="fa-solid fa-file-pdf" style="color: #EF4444;"></i> Export as PDF</a>
+                <a href="#export-csv" id="menu-export-csv"><i class="fa-solid fa-file-csv" style="color: #10B981;"></i> Export as CSV</a>
+                <a href="#export-excel" id="menu-export-excel"><i class="fa-solid fa-file-excel" style="color: #2563EB;"></i> Export as Excel</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- ROW 1: TOP 6 KPI SUMMARY METRIC CARDS                                 -->
+        <!-- Critical, High, Medium, Low, Overdue Defects, Resource Shortages      -->
+        <!-- ==================================================================== -->
+        <section class="alerts-kpi-grid" id="alerts-kpi-container">
+          <!-- Populated dynamically by renderAlertsKpis() in alerts.js -->
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- ROW 2: MAIN ALERTS TABLE & RIGHT MONITORING CARDS (2-COLUMN GRID)     -->
+        <!-- Left (approx 75%): Main Alerts Table with Tabs and Dropdown Filters   -->
+        <!-- Right (approx 25%): Overdue Defects & Shortage Warnings Stacked Cards  -->
+        <!-- ==================================================================== -->
+        <section class="alerts-row2-grid">
+          
+          <!-- Left Main Alerts Table Card -->
+          <div class="dashboard-card alerts-main-card" id="card-main-alerts">
+            
+            <!-- Table Toolbar: Priority Tabs (Left) + Dropdown Selectors (Right) -->
+            <div class="alerts-table-toolbar">
+              <!-- Priority Filter Tabs -->
+              <div class="alerts-tabs-row" id="alerts-tabs-container">
+                <!-- Populated dynamically by renderTableTabs() in alerts.js -->
+              </div>
+
+              <!-- Filter Dropdowns -->
+              <div class="alerts-filter-dropdowns">
+                <div class="alerts-filter-select-wrap">
+                  <select id="alert-category-filter" aria-label="Filter by Category">
+                    <option value="all" selected>All Categories</option>
+                    <option value="track">Track &amp; Infrastructure</option>
+                    <option value="resources">Resources</option>
+                    <option value="operations">Operations</option>
+                    <option value="weather">Weather &amp; External</option>
+                    <option value="signals">Signals &amp; Telecom</option>
+                  </select>
+                </div>
+
+                <div class="alerts-filter-select-wrap">
+                  <select id="alert-division-filter" aria-label="Filter by Division">
+                    <option value="all" selected>All Divisions</option>
+                    <option value="dhanbad">Dhanbad Division</option>
+                    <option value="ranchi">Ranchi Division</option>
+                    <option value="chakradharpur">Chakradharpur Division</option>
+                  </select>
+                </div>
+
+                <div class="alerts-filter-select-wrap">
+                  <select id="alert-status-filter" aria-label="Filter by Status">
+                    <option value="all" selected>All Status</option>
+                    <option value="Open">Open</option>
+                    <option value="Acknowledged">Acknowledged</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Monitoring">Monitoring</option>
+                    <option value="Resolved">Resolved</option>
+                  </select>
+                </div>
+
+                <div class="alerts-filter-select-wrap">
+                  <i class="fa-regular fa-calendar select-filter-icon"></i>
+                  <select id="alert-timeframe-filter" aria-label="Filter by Timeframe">
+                    <option value="7d" selected>Last 7 Days</option>
+                    <option value="24h">Last 24 Hours</option>
+                    <option value="30d">Last 30 Days</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sticky Scrollable Alerts Table Container -->
+            <div class="alerts-table-viewport-wrapper">
+              <table class="alerts-data-table" id="alerts-data-table">
+                <thead>
+                  <tr>
+                    <th style="width: 38px; text-align: center;">
+                      <input type="checkbox" id="select-all-alerts" aria-label="Select all alerts">
+                    </th>
+                    <th style="width: 130px;">Alert ID</th>
+                    <th style="width: 105px;">Type</th>
+                    <th style="min-width: 240px;">Title &amp; Description</th>
+                    <th style="width: 165px;">Location / Section</th>
+                    <th style="width: 135px;">Related To</th>
+                    <th style="width: 125px;">Raised On</th>
+                    <th style="width: 115px;">Status</th>
+                    <th style="width: 85px; text-align: center;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="alerts-tbody">
+                  <!-- Populated dynamically by renderAlertsTable() in alerts.js -->
+                </tbody>
+              </table>
+
+              <!-- Empty State Placeholder (when 0 records match search or filters) -->
+              <div class="alerts-empty-state" id="alerts-empty-state" style="display: none;">
+                <i class="fa-solid fa-shield-halved empty-icon"></i>
+                <h4 class="empty-title">No Alerts Found</h4>
+                <p class="empty-desc">No telemetry alerts match your active filter criteria.</p>
+                <button type="button" class="btn-clear-filters" id="btn-clear-filters">Reset All Filters</button>
+              </div>
+            </div>
+
+          </div><!-- End .alerts-main-card -->
+
+          <!-- Right Column: Overdue Defects & Shortage Warnings Stacked -->
+          <div class="alerts-side-column">
+            
+            <!-- Side Card 1: Overdue Defects -->
+            <div class="dashboard-card alerts-side-card" id="card-overdue-defects">
+              <!-- Populated dynamically by renderOverdueDefects() in alerts.js -->
+            </div>
+
+            <!-- Side Card 2: Shortage Warnings -->
+            <div class="dashboard-card alerts-side-card" id="card-shortage-warnings">
+              <!-- Populated dynamically by renderShortageWarnings() in alerts.js -->
+            </div>
+
+          </div><!-- End .alerts-side-column -->
+
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- ROW 3: ANALYTICS & ACTIVITY FEED (4-COLUMN GRID)                     -->
+        <!-- Col 1: Alerts by Category (Multi-Segment Donut Chart)                -->
+        <!-- Col 2: Alert Status (Multi-Segment Donut Chart)                      -->
+        <!-- Col 3: Alerts Trend (7-Day Multi-Line SVG Trend Chart)               -->
+        <!-- Col 4: Recent Activity / Notifications (Chronological Event Feed)    -->
+        <!-- ==================================================================== -->
+        <section class="alerts-row3-grid">
+          
+          <!-- Col 1: Alerts by Category -->
+          <div class="dashboard-card alerts-bottom-card" id="card-alerts-category">
+            <!-- Populated dynamically by renderCategoryDonut() in alerts.js -->
+          </div>
+
+          <!-- Col 2: Alert Status -->
+          <div class="dashboard-card alerts-bottom-card" id="card-alert-status">
+            <!-- Populated dynamically by renderStatusDonut() in alerts.js -->
+          </div>
+
+          <!-- Col 3: Alerts Trend -->
+          <div class="dashboard-card alerts-bottom-card" id="card-alerts-trend">
+            <!-- Populated dynamically by renderAlertsTrendChart() in alerts.js -->
+          </div>
+
+          <!-- Col 4: Recent Activity / Notifications -->
+          <div class="dashboard-card alerts-bottom-card" id="card-recent-activity">
+            <!-- Populated dynamically by renderRecentActivity() in alerts.js -->
+          </div>
+
+        </section>
+
+      </main>
+
+      <!-- 2.3 APPLICATION FOOTER -->
+      <footer class="bottom-footer" id="app-bottom-footer">
+        <div class="footer-quote" id="footer-quote-container"></div>
+        <div class="footer-links" id="footer-links-container"></div>
+      </footer>
+
+    </div><!-- End .main-wrapper -->
+
+  </div><!-- End .app-layout -->
+
+  <!-- ========================================================================== -->
+  <!-- 3. INTERACTIVE MODAL DIALOGS                                               -->
+  <!-- ========================================================================== -->
+
+  <!-- 3.1 Alert Deep-Dive & Action Modal Dialog -->
+  <div class="alerts-modal-overlay" id="alert-detail-modal" role="dialog" aria-modal="true" aria-labelledby="modal-alert-title">
+    <div class="alerts-modal-dialog">
+      <div class="alerts-modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-badge-icon red-theme" id="modal-alert-badge-icon">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <div>
+            <h3 class="alerts-modal-title" id="modal-alert-title">Alert Details &amp; Operational Telemetry</h3>
+            <p class="alerts-modal-subtitle" id="modal-alert-subtitle">Detailed risk breakdown and mitigation control</p>
+          </div>
+        </div>
+        <button class="alerts-modal-close-btn" id="modal-alert-close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <div class="alerts-modal-body" id="modal-alert-body">
+        <!-- Injected dynamically when user clicks 'View' on any alert row -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 3.2 Export Alerts Modal Dialog -->
+  <div class="alerts-modal-overlay" id="export-alerts-modal" role="dialog" aria-modal="true" aria-labelledby="modal-export-title">
+    <div class="alerts-modal-dialog" style="max-width: 480px;">
+      <div class="alerts-modal-header">
+        <div class="modal-title-wrap">
+          <div class="modal-badge-icon blue-theme">
+            <i class="fa-solid fa-file-export"></i>
+          </div>
+          <div>
+            <h3 class="alerts-modal-title" id="modal-export-title">Export Alerts Telemetry</h3>
+            <p class="alerts-modal-subtitle">Download filtered records for division review</p>
+          </div>
+        </div>
+        <button class="alerts-modal-close-btn" id="modal-export-close-btn" aria-label="Close dialog">&times;</button>
+      </div>
+
+      <form class="alerts-modal-body" id="export-alerts-form">
+        <div class="form-group" style="margin-bottom: 0.85rem;">
+          <label class="form-label" for="export-format-choice">Export Format *</label>
+          <select id="export-format-choice" class="form-control" style="width: 100%; padding: 0.45rem 0.65rem; border-radius: 6px; border: 1px solid #CBD5E1;">
+            <option value="PDF">Adobe Acrobat Document (.pdf)</option>
+            <option value="CSV">Comma Separated Values (.csv)</option>
+            <option value="Excel">Microsoft Excel Workbook (.xlsx)</option>
+          </select>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label class="form-label" for="export-scope-choice">Records Scope</label>
+          <select id="export-scope-choice" class="form-control" style="width: 100%; padding: 0.45rem 0.65rem; border-radius: 6px; border: 1px solid #CBD5E1;">
+            <option value="active">Active Filtered Records Only</option>
+            <option value="all">All 64 Alerts in Network</option>
+            <option value="critical">Critical &amp; High Priority Only</option>
+          </select>
+        </div>
+
+        <div class="alerts-modal-footer" style="display: flex; justify-content: flex-end; gap: 0.65rem;">
+          <button type="button" class="btn btn-secondary" id="modal-export-cancel-btn" style="padding: 0.45rem 1rem; border-radius: 6px; border: 1px solid #CBD5E1; background: #FFFFFF; cursor: pointer;">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="modal-export-submit-btn" style="padding: 0.45rem 1rem; border-radius: 6px; border: none; background: #2563EB; color: #FFFFFF; font-weight: 700; cursor: pointer;">
+            <i class="fa-solid fa-download"></i> Download Export
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Dynamic Application Engine -->
+  <script src="alerts.js"></script>
+</body>
+</html>

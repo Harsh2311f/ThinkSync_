@@ -1,0 +1,1600 @@
+/* ==========================================================================
+   RAILWAY HEALTH MAP STYLESHEET (PAGE 2)
+   Indian Railways - Jharkhand Division Live Network Health System
+   Architecture: Extends style.css design tokens, sidebar, header, and themes.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. MAP PAGE MAIN CONTAINER
+   -------------------------------------------------------------------------- */
+.map-page-main {
+  padding: 0.85rem 1.15rem;
+  background: var(--bg-main, #F1F5F9);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   2. ACTION SUBHEADER TOOLBAR CARD
+   -------------------------------------------------------------------------- */
+.map-subheader-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 0.75rem 1.15rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.map-subheader-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.map-page-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-sm);
+  background: #E0F2FE;
+  color: #0284C7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.map-page-title-group h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+.map-page-title-group p {
+  font-size: 0.76rem;
+  color: #64748B;
+  margin-top: 0.15rem;
+}
+
+.map-subheader-right {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.sub-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.sub-control-label {
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: #64748B;
+  text-transform: capitalize;
+}
+
+.sub-select {
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--border-radius-xs);
+  border: 1px solid #CBD5E1;
+  background: #FFFFFF;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #1E293B;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.sub-select:focus {
+  border-color: var(--primary-600);
+}
+
+.live-status-pill {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: var(--border-radius-sm);
+  padding: 0.35rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.live-indicator-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #16A34A;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+  animation: pulseGreen 2s infinite ease-in-out;
+}
+
+@keyframes pulseGreen {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 5px rgba(22, 163, 74, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+}
+
+.live-status-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.live-text-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #15803D;
+  line-height: 1.1;
+}
+
+.live-text-sub {
+  font-size: 0.64rem;
+  color: #64748B;
+  margin-top: 0.08rem;
+}
+
+.refresh-action-btn {
+  background: none;
+  border: none;
+  color: #1D4ED8;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: transform 0.3s ease, color 0.2s ease;
+}
+
+.refresh-action-btn:hover {
+  transform: rotate(90deg);
+  color: #0284C7;
+}
+
+.refresh-action-btn.spinning {
+  animation: spin360 0.8s ease-in-out;
+}
+
+@keyframes spin360 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------------------
+   3. TOP 5 HEALTH KPI CARDS ROW
+   -------------------------------------------------------------------------- */
+.health-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+}
+
+.health-kpi-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.health-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.kpi-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.kpi-icon-box.track-navy { background: #EEF2FF; color: #1E293B; }
+.kpi-icon-box.healthy-orange { background: #FFF7ED; color: #EA580C; }
+.kpi-icon-box.moderate-yellow { background: #FEFCE8; color: #CA8A04; }
+.kpi-icon-box.critical-red { background: #FEF2F2; color: #DC2626; }
+.kpi-icon-box.maintenance-blue { background: #EFF6FF; color: #2563EB; }
+
+.kpi-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #64748B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpi-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin-top: 0.15rem;
+}
+
+.kpi-num {
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: #0F172A;
+  line-height: 1.1;
+}
+
+.kpi-trend {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.08rem 0.35rem;
+  border-radius: 4px;
+}
+
+.kpi-trend.green { background: #DCFCE7; color: #166534; }
+.kpi-trend.red { background: #FEE2E2; color: #991B1B; }
+.kpi-trend.gray { background: #F1F5F9; color: #475569; }
+
+.kpi-subtext {
+  font-size: 0.68rem;
+  color: #94A3B8;
+  margin-top: 0.15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --------------------------------------------------------------------------
+   3.5 DASHBOARD CARDS BASE SPECIFICATION (All 7 Cards)
+   Ensures solid white background, crisp border, rounded corners, and soft shadow
+   -------------------------------------------------------------------------- */
+.dashboard-card {
+  background: #FFFFFF !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius-md) !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  box-sizing: border-box;
+}
+
+.dashboard-card:hover {
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Common Card Link */
+.card-link {
+  font-size: 0.72rem;
+  color: var(--primary-600);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.card-link:hover {
+  color: var(--primary-700);
+  transform: translateX(2px);
+}
+
+/* --------------------------------------------------------------------------
+   4. MIDDLE MAIN GRID (Interactive Map, Details & Zones)
+   -------------------------------------------------------------------------- */
+.map-middle-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 52fr) minmax(0, 24fr) minmax(0, 24fr);
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+/* 4.1 Map View Card: Jharkhand Railway Network - Live Health Map */
+.map-view-card {
+  background: #FFFFFF !important;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.map-card-header {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.map-title-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  background: #ECFDF5;
+  color: #059669;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
+.map-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.map-action-btn {
+  padding: 0.3rem 0.65rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-xs);
+  border: 1px solid var(--border-color);
+  background: #FFFFFF;
+  color: #334155;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+}
+
+.map-action-btn:hover {
+  background: #F8FAFC;
+  border-color: #94A3B8;
+  color: #0F172A;
+}
+
+.map-search-box {
+  display: flex;
+  align-items: center;
+  background: #F8FAFC;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-xs);
+  padding: 0.25rem 0.6rem;
+  gap: 0.4rem;
+  font-size: 0.74rem;
+  width: 175px;
+}
+
+.map-search-box i {
+  color: #94A3B8;
+  font-size: 0.75rem;
+}
+
+.map-search-box input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 0.74rem;
+  width: 100%;
+  color: #1E293B;
+}
+
+.map-icon-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--border-radius-xs);
+  border: 1px solid var(--border-color);
+  background: #FFFFFF;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.78rem;
+  transition: all 0.2s ease;
+}
+
+.map-icon-btn:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+}
+
+/* Legend Bar */
+.map-legend-bar {
+  padding: 0.45rem 1rem;
+  background: #F8FAFC;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+.legend-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 20px;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.legend-pill:hover {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+}
+
+.legend-pill.active-filter {
+  border-color: var(--primary-600);
+  background: #EFF6FF;
+  color: var(--primary-700);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-dot.good { background: #22C55E; }
+.legend-dot.moderate { background: #EAB308; }
+.legend-dot.vulnerable { background: #F97316; }
+.legend-dot.critical { background: #EF4444; }
+.legend-dot.maintenance { background: #3B82F6; }
+
+/* Interactive Map Canvas Wrapper */
+.map-canvas-wrapper {
+  position: relative;
+  background: radial-gradient(circle at 50% 50%, #E2EFE2 0%, #D5E7D5 60%, #C8DEC8 100%);
+  height: 440px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jharkhand-svg-map {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* SVG Map Elements */
+.map-state-bg {
+  fill: #E9F5E9;
+  stroke: #16A34A;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 4px 14px rgba(22, 163, 74, 0.15));
+}
+
+.neighbor-state-text {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  fill: #64748B;
+  opacity: 0.75;
+}
+
+.direction-arrow-text {
+  font-size: 10px;
+  font-weight: 700;
+  fill: #1E293B;
+}
+
+/* Railway Lines */
+.rail-track-base {
+  fill: none;
+  stroke: #FFFFFF;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rail-track-line {
+  fill: none;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  cursor: pointer;
+  transition: stroke-width 0.2s ease, filter 0.2s ease;
+}
+
+.rail-track-line:hover,
+.rail-track-line.selected {
+  stroke-width: 6;
+  filter: drop-shadow(0 0 6px currentColor);
+}
+
+.rail-track-line.track-good { stroke: #22C55E; }
+.rail-track-line.track-moderate { stroke: #EAB308; }
+.rail-track-line.track-vulnerable { stroke: #F97316; }
+.rail-track-line.track-critical { stroke: #EF4444; }
+.rail-track-line.track-maintenance { stroke: #3B82F6; stroke-dasharray: 6, 4; }
+
+/* Station Nodes */
+.station-node {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.station-node:hover {
+  transform: scale(1.25);
+}
+
+.station-circle-bg {
+  fill: #FFFFFF;
+  stroke-width: 2.5;
+}
+
+.station-circle-inner {
+  fill: #0F172A;
+}
+
+.station-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  fill: #0F172A;
+  paint-order: stroke;
+  stroke: #FFFFFF;
+  stroke-width: 3px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.station-label.hub {
+  font-size: 12px;
+  font-weight: 800;
+  fill: #0F172A;
+}
+
+/* Map UI Controls Overlay */
+.map-ui-controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 10;
+}
+
+.map-control-btn {
+  width: 28px;
+  height: 28px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.map-control-btn:hover {
+  background: #F8FAFC;
+  color: #0F172A;
+}
+
+.map-compass {
+  position: absolute;
+  top: 12px;
+  right: 48px;
+  width: 28px;
+  height: 28px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #DC2626;
+}
+
+.map-scale-bar {
+  position: absolute;
+  bottom: 12px;
+  left: 14px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.scale-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #334155;
+  font-family: var(--font-mono);
+}
+
+.scale-line {
+  height: 3px;
+  width: 120px;
+  background: repeating-linear-gradient(to right, #0F172A 0, #0F172A 30px, #FFFFFF 30px, #FFFFFF 60px);
+  border: 1px solid #0F172A;
+}
+
+/* --------------------------------------------------------------------------
+   4.2 SECTION DETAILS CARD
+   -------------------------------------------------------------------------- */
+.section-details-card {
+  background: #FFFFFF !important;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.65rem;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.details-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.55rem;
+}
+
+.details-meta-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: 0.76rem;
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.meta-row-label {
+  color: #64748B;
+  font-weight: 500;
+}
+
+.meta-row-val {
+  color: #0F172A;
+  font-weight: 700;
+  text-align: right;
+}
+
+.meta-row-val.mono {
+  font-family: var(--font-mono);
+}
+
+.health-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.health-status-badge.moderate {
+  background: #FEF3C7;
+  color: #B45309;
+}
+
+.health-status-badge.critical {
+  background: #FEE2E2;
+  color: #B91C1C;
+}
+
+.health-status-badge.vulnerable {
+  background: #FFEDD5;
+  color: #C2410C;
+}
+
+.health-status-badge.good {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+.key-issues-section {
+  border-top: 1px dashed var(--border-color);
+  padding-top: 0.55rem;
+}
+
+.issues-title {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 0.35rem;
+}
+
+.issues-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.issues-list li {
+  font-size: 0.72rem;
+  color: #475569;
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+}
+
+.issues-list li::before {
+  content: '•';
+  color: #EF4444;
+  font-size: 1.1rem;
+  line-height: 0.8;
+}
+
+.ai-rec-banner {
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: var(--border-radius-sm);
+  padding: 0.65rem 0.75rem;
+  display: flex;
+  gap: 0.65rem;
+}
+
+.ai-rec-icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #1D4ED8;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.ai-rec-text h5 {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: #1E40AF;
+  line-height: 1.1;
+}
+
+.ai-rec-text p {
+  font-size: 0.68rem;
+  color: #1E3A8A;
+  margin-top: 0.2rem;
+  line-height: 1.25;
+}
+
+.btn-create-task {
+  width: 100%;
+  padding: 0.55rem 0.85rem;
+  background: #1D4ED8;
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  transition: background 0.2s ease, transform 0.15s ease;
+  margin-top: auto;
+}
+
+.btn-create-task:hover {
+  background: #1E40AF;
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   4.3 FAR RIGHT COLUMN: VULNERABILITY ZONES & LIVE HEALTH INDICATORS
+   -------------------------------------------------------------------------- */
+.map-right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+}
+
+/* Vulnerability Zones */
+.vuln-zones-card {
+  background: #FFFFFF !important;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 0.8rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.vuln-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.vuln-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.35rem 0.25rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  border-radius: 4px;
+}
+
+.vuln-item:last-child {
+  border-bottom: none;
+}
+
+.vuln-item:hover {
+  background: #F8FAFC;
+}
+
+.vuln-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.vuln-icon.high { background: #FEE2E2; color: #DC2626; }
+.vuln-icon.medium { background: #FFEDD5; color: #EA580C; }
+.vuln-icon.low-water { background: #E0F2FE; color: #0284C7; }
+.vuln-icon.low-mountain { background: #DCFCE7; color: #16A34A; }
+
+.vuln-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.vuln-title {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.1;
+}
+
+.vuln-sub {
+  font-size: 0.65rem;
+  color: #64748B;
+  margin-top: 0.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vuln-badges {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  flex-shrink: 0;
+}
+
+.vuln-level-badge {
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 0.06rem 0.4rem;
+  border-radius: 3px;
+}
+
+.vuln-level-badge.high { background: #FEE2E2; color: #B91C1C; }
+.vuln-level-badge.medium { background: #FFEDD5; color: #C2410C; }
+.vuln-level-badge.low { background: #DCFCE7; color: #15803D; }
+
+.vuln-km-badge {
+  font-size: 0.6rem;
+  color: #64748B;
+  font-family: var(--font-mono);
+}
+
+/* Live Health Indicators (Circular Progress Gauges) */
+.health-indicators-card {
+  background: #FFFFFF !important;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 0.8rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  box-sizing: border-box;
+}
+
+.gauges-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.45rem;
+  text-align: center;
+}
+
+.gauge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.gauge-circle-wrap {
+  position: relative;
+  width: 52px;
+  height: 52px;
+}
+
+.gauge-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.gauge-track {
+  fill: none;
+  stroke: #E2E8F0;
+  stroke-width: 4;
+}
+
+.gauge-progress {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.8s ease;
+}
+
+.gauge-progress.amber { stroke: #F59E0B; }
+.gauge-progress.teal { stroke: #0D9488; }
+.gauge-progress.green { stroke: #10B981; }
+.gauge-progress.red { stroke: #EF4444; }
+
+.gauge-center-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: #0F172A;
+}
+
+.gauge-lbl {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: #475569;
+  line-height: 1.15;
+  text-align: center;
+  max-width: 60px;
+}
+
+/* --------------------------------------------------------------------------
+   5. BOTTOM ANALYTICS ROW
+   -------------------------------------------------------------------------- */
+.bottom-analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+/* 5.1 Donut Card */
+.network-donut-card {
+  background: #FFFFFF !important;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  box-sizing: border-box;
+}
+
+.donut-content-layout {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.donut-chart-box {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+.donut-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.donut-center-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.donut-center-num {
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: #0F172A;
+  line-height: 1;
+}
+
+.donut-center-sub {
+  font-size: 0.65rem;
+  color: #64748B;
+  font-weight: 600;
+}
+
+.donut-legend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.donut-legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.72rem;
+}
+
+.legend-left {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #334155;
+  font-weight: 600;
+}
+
+.legend-right {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: #0F172A;
+}
+
+/* 5.2 Critical Sections Table */
+.critical-sections-card {
+  background: #FFFFFF !important;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  box-sizing: border-box;
+}
+
+.crit-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.74rem;
+}
+
+.crit-table th {
+  text-align: left;
+  padding: 0.35rem 0.45rem;
+  color: #64748B;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.68rem;
+}
+
+.crit-table td {
+  padding: 0.45rem 0.45rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.crit-table tr:hover td {
+  background: #F8FAFC;
+}
+
+.crit-sec-code {
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: #0F172A;
+}
+
+.crit-score {
+  font-weight: 800;
+  font-family: var(--font-mono);
+}
+
+.crit-score.red { color: #DC2626; }
+.crit-score.orange { color: #EA580C; }
+
+.status-badge-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.1rem 0.45rem;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+.status-badge-pill.critical { background: #FEE2E2; color: #DC2626; }
+.status-badge-pill.vulnerable { background: #FFEDD5; color: #EA580C; }
+
+/* 5.3 AI Insights Card */
+.ai-insights-card {
+  background: #FFFFFF !important;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  box-sizing: border-box;
+}
+
+.insights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.insight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.insight-item:last-child {
+  border-bottom: none;
+}
+
+.insight-icon-box {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.insight-icon-box.purple { background: #F3E8FF; color: #9333EA; }
+.insight-icon-box.green { background: #DCFCE7; color: #16A34A; }
+.insight-icon-box.blue { background: #EFF6FF; color: #2563EB; }
+
+.insight-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.insight-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.insight-title {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.insight-badge {
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 0.05rem 0.35rem;
+  border-radius: 3px;
+}
+
+.insight-badge.high { background: #FEE2E2; color: #B91C1C; }
+.insight-badge.medium { background: #FFEDD5; color: #C2410C; }
+.insight-badge.low { background: #DCFCE7; color: #15803D; }
+
+.insight-desc {
+  font-size: 0.68rem;
+  color: #475569;
+  margin-top: 0.15rem;
+  line-height: 1.25;
+}
+
+.insight-time {
+  font-size: 0.62rem;
+  color: #94A3B8;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   6. RESPONSIVE MEDIA QUERIES FOR MAP PAGE
+   -------------------------------------------------------------------------- */
+@media (max-width: 1400px) {
+  .map-middle-grid {
+    grid-template-columns: minmax(0, 50fr) minmax(0, 25fr) minmax(0, 25fr);
+  }
+}
+
+@media (max-width: 1200px) {
+  .health-kpi-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .map-middle-grid {
+    grid-template-columns: 1fr;
+  }
+  .bottom-analytics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .health-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   7. DARK MODE THEME FOR RAILWAY HEALTH MAP (PAGE 2)
+   ========================================================================== */
+body.theme-dark .map-page-main {
+  background: #0A1124 !important;
+  color: #F8FAFC !important;
+}
+
+body.theme-dark .map-subheader-card {
+  background: #111C2E !important;
+  border-color: #1E2D48 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.theme-dark .map-page-title-group h2 {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .map-page-title-group p,
+body.theme-dark .sub-control-label {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .sub-select {
+  background-color: #152238 !important;
+  border-color: #23354E !important;
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .sub-select option {
+  background-color: #111C2E !important;
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .health-kpi-card {
+  background: #111C2E !important;
+  border-color: #1E2D48 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.theme-dark .health-kpi-card .kpi-num {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .health-kpi-card .kpi-title {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .health-kpi-card .kpi-subtext {
+  color: #64748B !important;
+}
+
+body.theme-dark .dashboard-card,
+body.theme-dark .map-view-card,
+body.theme-dark .section-details-card,
+body.theme-dark .vuln-zones-card,
+body.theme-dark .indicators-card,
+body.theme-dark .overview-card,
+body.theme-dark .top-sections-card,
+body.theme-dark .insights-card {
+  background: #111C2E !important;
+  border-color: #1E2D48 !important;
+  color: #F8FAFC !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.theme-dark .map-card-header,
+body.theme-dark .card-header {
+  border-bottom-color: #1E2D48 !important;
+}
+
+body.theme-dark .card-title,
+body.theme-dark .map-title-group h3 {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .map-legend,
+body.theme-dark #map-legend-container {
+  background: #152238 !important;
+  border-bottom-color: #1E2D48 !important;
+  color: #F59E0B !important;
+}
+
+body.theme-dark .map-canvas-wrapper {
+  background: #0B1426 !important;
+}
+
+body.theme-dark .map-legend-bar {
+  background: #152238 !important;
+  border-bottom-color: #1E2D48 !important;
+}
+
+body.theme-dark .legend-pill {
+  background: #111C2E !important;
+  border-color: #1E2D48 !important;
+  color: #CBD5E1 !important;
+}
+
+body.theme-dark .legend-pill.active-filter {
+  background: #2563EB !important;
+  border-color: #3B82F6 !important;
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .meta-row-label {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .meta-row-val {
+  color: #F8FAFC !important;
+}
+
+body.theme-dark .ai-rec-banner,
+body.theme-dark .ai-recommendation-box {
+  background: rgba(37, 99, 235, 0.15) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+body.theme-dark .ai-rec-text h5,
+body.theme-dark .ai-rec-title {
+  color: #60A5FA !important;
+}
+
+body.theme-dark .ai-rec-text p,
+body.theme-dark .ai-rec-desc {
+  color: #93C5FD !important;
+}
+
+body.theme-dark .donut-legend-item {
+  color: #CBD5E1 !important;
+}
+
+body.theme-dark .donut-legend-item .legend-right {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .top-sections-table th {
+  background: #152238 !important;
+  color: #93C5FD !important;
+  border-color: #1E2D48 !important;
+}
+
+body.theme-dark .top-sections-table td {
+  color: #E2E8F0 !important;
+  border-color: #1E2D48 !important;
+}
+
+body.theme-dark .top-sections-table tr:hover td {
+  background: rgba(37, 99, 235, 0.1) !important;
+}
+
+body.theme-dark .zone-item,
+body.theme-dark .insight-item {
+  background: #152238 !important;
+  border-color: #1E2D48 !important;
+}
+
+body.theme-dark .zone-name,
+body.theme-dark .insight-title {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .zone-sub,
+body.theme-dark .insight-desc {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .legend-text {
+  color: #CBD5E1 !important;
+}
+
+body.theme-dark .legend-count {
+  color: #FFFFFF !important;
+}
+
+/* Railway Health Map Page Icon & Top KPI Icon Boxes */
+body.theme-dark .map-page-icon {
+  background: rgba(37, 99, 235, 0.22) !important;
+  color: #60A5FA !important;
+  border: 1px solid rgba(59, 130, 246, 0.4) !important;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.25) !important;
+}
+
+body.theme-dark .kpi-icon-box {
+  background: rgba(37, 99, 235, 0.2) !important;
+  color: #60A5FA !important;
+  border: 1px solid rgba(59, 130, 246, 0.35) !important;
+}
+
+body.theme-dark .kpi-icon-box.green {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #34D399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+}
+
+body.theme-dark .kpi-icon-box.orange,
+body.theme-dark .kpi-icon-box.yellow {
+  background: rgba(245, 158, 11, 0.2) !important;
+  color: #FBBF24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.35) !important;
+}
+
+body.theme-dark .kpi-icon-box.red {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #F87171 !important;
+  border: 1px solid rgba(239, 68, 68, 0.35) !important;
+}
+
+/* Vulnerability Zones Dark Mode Hover & Typography */
+body.theme-dark .vuln-item {
+  border-bottom-color: #1E2D48 !important;
+}
+
+body.theme-dark .vuln-item:hover {
+  background: rgba(37, 99, 235, 0.15) !important;
+}
+
+body.theme-dark .vuln-title {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .vuln-sub {
+  color: #94A3B8 !important;
+}
+
+/* Live Health Indicators Card & Text Contrast */
+body.theme-dark .health-indicators-card {
+  background: #111C2E !important;
+  border-color: #1E2D48 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.theme-dark .gauge-center-text {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .gauge-lbl {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .gauge-track {
+  stroke: #1E2D48 !important;
+}
+
+body.theme-dark .top-sections-table tbody tr:hover,
+body.theme-dark .top-sections-table tbody tr:hover td {
+  background: rgba(37, 99, 235, 0.15) !important;
+  color: #FFFFFF !important;
+}
+
+/* Network Health Overview Donut Card Dark Mode */
+.donut-bg-track {
+  stroke: #F1F5F9;
+}
+
+body.theme-dark .donut-bg-track {
+  stroke: #1E2D48 !important;
+}
+
+body.theme-dark .network-donut-card {
+  background: #111C2E !important;
+  border-color: #1E2D48 !important;
+  color: #F8FAFC !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25) !important;
+}
+
+body.theme-dark .network-donut-card .card-title {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .network-donut-card .sub-select,
+body.theme-dark .sub-select {
+  background: #152238 !important;
+  border: 1px solid #1E2D48 !important;
+  color: #F8FAFC !important;
+}
+
+body.theme-dark .network-donut-card .donut-center-num,
+body.theme-dark .donut-center-num {
+  color: #FFFFFF !important;
+}
+
+body.theme-dark .network-donut-card .donut-center-sub,
+body.theme-dark .donut-center-sub {
+  color: #94A3B8 !important;
+}
+
+body.theme-dark .network-donut-card .donut-legend-item,
+body.theme-dark .donut-legend-item {
+  color: #CBD5E1 !important;
+}
+
+body.theme-dark .network-donut-card .legend-left,
+body.theme-dark .legend-left,
+body.theme-dark .network-donut-card .legend-left span,
+body.theme-dark .legend-left span {
+  color: #CBD5E1 !important;
+}
+
+body.theme-dark .network-donut-card .legend-right,
+body.theme-dark .legend-right {
+  color: #FFFFFF !important;
+}
+

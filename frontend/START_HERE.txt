@@ -1,0 +1,25 @@
+THINKSYNC REACT - QUICK START (Windows / VS Code)
+
+1. Extract this ZIP.
+2. Open the extracted ThinkSync-React folder in VS Code.
+3. Open Terminal -> New Terminal.
+4. Run:
+
+   npm install
+   npm run dev
+
+5. Open the local URL printed by Vite (normally http://localhost:5173/).
+
+Main React routes:
+/             Dashboard
+/map          Railway Health Map
+/calendar     Block Calendar
+/tasks        Maintenance Tasks
+/movements    Train Movements
+/resources    Resources
+/optimization Optimization
+/reports      Reports
+/alerts       Alerts
+/settings     Settings
+
+The untouched original frontend is kept in the /original folder.

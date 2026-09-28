@@ -8,3 +8,7 @@ data/ThinkSync_FY2025_26_Complete_CSV_Dataset/
 data/ThinkSync_Jharkhand_FY2025_26_Complete_Dataset/
 unified.zip
 mlvenv/
+
+frontend/node_modules/
+frontend/dist/
+frontend/.env

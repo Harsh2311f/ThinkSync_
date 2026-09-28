@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Block Calendar - Jharkhand Division | Indian Railways</title>
+  
+  <!-- SEO & Application Metadata -->
+  <meta name="description" content="Plan, visualize and manage maintenance blocks across the Jharkhand Railway Network. Powered by ThinkSync AI.">
+  
+  <!-- Google Fonts: Plus Jakarta Sans for UI and JetBrains Mono for numbers/codes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Main Application Stylesheet & Calendar Specific Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="calendar.css">
+  
+  <!-- Global Theme & Sidebar Synchronizer -->
+  <script src="theme-sync.js"></script>
+</head>
+<body>
+  
+  <!-- ========================================================================== -->
+  <!-- MAIN APPLICATION LAYOUT WRAPPER                                            -->
+  <!-- Splits screen into Left Sidebar and Right Main Content Area                -->
+  <!-- ========================================================================== -->
+  <div class="app-layout">
+    
+    <!-- ======================================================================== -->
+    <!-- 1. LEFT SIDEBAR NAVIGATION                                               -->
+    <!-- Contains Hamburger Show/Hide Toggle, Navigation Tabs, and Bottom Card    -->
+    <!-- All navigation and bottom card data is managed via JavaScript/CSS        -->
+    <!-- ======================================================================== -->
+    <aside class="sidebar" id="sidebar">
+      
+      <!-- 1.1 Sidebar Header: Hamburger Show & Hide Toggle Button -->
+      <div class="sidebar-header-toggle" id="sidebar-header-toggle">
+        <button class="sidebar-toggle-btn" id="sidebar-toggle-btn" aria-label="Toggle Navigation Sidebar" title="Show / Hide Sidebar">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <span class="sidebar-toggle-label">Navigation</span>
+      </div>
+
+      <!-- 1.2 Navigation Menu Links -->
+      <nav class="sidebar-nav" id="sidebar-nav-container" aria-label="Main navigation">
+        <a href="index.html" class="nav-item" data-tab="dashboard" data-tooltip="Dashboard">
+          <i class="fa-solid fa-house"></i>
+          <span class="nav-label">Dashboard</span>
+        </a>
+        <a href="map.html" class="nav-item" data-tab="map" data-tooltip="Railway Health Map">
+          <i class="fa-solid fa-location-dot"></i>
+          <span class="nav-label">Railway Health Map</span>
+        </a>
+        <a href="calendar.html" class="nav-item active" data-tab="calendar" data-tooltip="Block Calendar">
+          <i class="fa-solid fa-calendar-days"></i>
+          <span class="nav-label">Block Calendar</span>
+        </a>
+        <a href="tasks.html" class="nav-item" data-tab="tasks" data-tooltip="Maintenance Tasks">
+          <i class="fa-solid fa-clipboard-list"></i>
+          <span class="nav-label">Maintenance Tasks</span>
+        </a>
+        <a href="movements.html" class="nav-item" data-tab="movements" data-tooltip="Train Movements">
+          <i class="fa-solid fa-train"></i>
+          <span class="nav-label">Train Movements</span>
+        </a>
+        <a href="resources.html" class="nav-item" data-tab="resources" data-tooltip="Resources">
+          <i class="fa-solid fa-network-wired"></i>
+          <span class="nav-label">Resources</span>
+        </a>
+        <a href="optimization.html" class="nav-item" data-tab="optimization" data-tooltip="Optimization">
+          <i class="fa-solid fa-chart-line"></i>
+          <span class="nav-label">Optimization</span>
+        </a>
+        <a href="reports.html" class="nav-item" data-tab="reports" data-tooltip="Reports">
+          <i class="fa-solid fa-file-lines"></i>
+          <span class="nav-label">Reports</span>
+        </a>
+        <a href="alerts.html" class="nav-item" data-tab="alerts" data-tooltip="Alerts">
+          <i class="fa-solid fa-bell"></i>
+          <span class="nav-label">Alerts</span>
+        </a>
+        <a href="settings.html" class="nav-item" data-tab="settings" data-tooltip="Settings">
+          <i class="fa-solid fa-gear"></i>
+          <span class="nav-label">Settings</span>
+        </a>
+      </nav>
+
+      <!-- 1.3 Bottom Train Branding Card -->
+      <!-- Purpose: Injected dynamically by renderSidebarAndFooter() in calendar.js -->
+      <div class="sidebar-train-card" id="sidebar-train-card">
+        <!-- Dynamic content: Train background image, 'Better Planning Safer Journeys' and Indian Flag -->
+      </div>
+      
+    </aside>
+
+    <!-- ======================================================================== -->
+    <!-- 2. MAIN WORKSPACE WRAPPER (Top Header + Calendar Grid + Footer)          -->
+    <!-- ======================================================================== -->
+    <div class="main-wrapper">
+      
+      <!-- ====================================================================== -->
+      <!-- 2.1 TOP HEADER BAR                                                     -->
+      <!-- Displays division mission statement, live search, notifications, & user-->
+      <!-- ====================================================================== -->
+      <header class="top-header">
+        
+        <!-- Header Left -->
+        <div class="header-left"></div>
+
+        <!-- Header Right: Search, Notifications, Profile -->
+        <div class="header-right">
+          
+          <!-- Live Interactive Search Box -->
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="global-search" placeholder="Search section, station, train, task..." autocomplete="off">
+            <!-- Search dropdown suggestions container populated by JavaScript -->
+            <div class="search-results-dropdown" id="search-dropdown"></div>
+          </div>
+
+          <!-- Notification Bell with Counter Badge -->
+          <div class="notification-wrapper">
+            <button class="icon-btn" id="notif-btn" aria-label="View System Notifications">
+              <i class="fa-solid fa-bell"></i>
+              <!-- Notification counter badge populated dynamically by JS -->
+              <span class="notif-badge" id="header-notif-badge"></span>
+            </button>
+            
+            <!-- Notification Dropdown Panel -->
+            <div class="notif-dropdown" id="notif-dropdown">
+              <div class="notif-header">
+                <h3>System Notifications</h3>
+                <span class="badge badge-danger" id="notif-dropdown-count"></span>
+              </div>
+              <!-- Notification items injected by JavaScript -->
+              <div class="notif-list" id="notif-list-container"></div>
+              <div class="notif-footer">
+                <a href="#alerts" id="view-all-notifs">View All Alerts &rarr;</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Profile Badge: Injected dynamically by calendar.js -->
+          <div class="user-profile" id="user-profile-container">
+            <!-- Dynamic avatar, user name, role, and dropdown arrow -->
+          </div>
+        </div>
+      </header>
+
+      <!-- ====================================================================== -->
+      <!-- 2.2 CALENDAR CONTENT CANVAS                                            -->
+      <!-- No data is hardcoded here. Every container is populated by JavaScript! -->
+      <!-- When data is not available, it displays 'Not Found' gracefully         -->
+      <!-- ====================================================================== -->
+      <main class="calendar-page-main" id="calendar-page-main">
+        
+        <!-- ==================================================================== -->
+        <!-- PART A: ACTION SUBHEADER TOOLBAR CARD                                -->
+        <!-- Title, month navigator, view switchers (Week/Month/Timeline), button -->
+        <!-- Injected dynamically by renderCalendarSubheader() in calendar.js     -->
+        <!-- ==================================================================== -->
+        <section class="dashboard-card calendar-subheader-card" id="calendar-subheader-card">
+          <!-- Populated by calendar.js -->
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- PART B: TOP 5 KPI SUMMARY METRIC CARDS ROW                           -->
+        <!-- Total Blocks, Planned Blocks, In Progress, Conflicts, Departments    -->
+        <!-- Injected dynamically by renderCalendarKpis() in calendar.js          -->
+        <!-- ==================================================================== -->
+        <section class="calendar-kpi-grid" id="calendar-kpi-container">
+          <!-- Populated by calendar.js -->
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- PART C: FILTER TOOLBAR CARD                                          -->
+        <!-- Section, Department, Block Type, Status dropdowns & Search filter    -->
+        <!-- Injected dynamically by renderFilterToolbar() in calendar.js         -->
+        <!-- ==================================================================== -->
+        <section class="dashboard-card calendar-filter-toolbar" id="calendar-filter-toolbar">
+          <!-- Populated by calendar.js -->
+        </section>
+
+        <!-- ==================================================================== -->
+        <!-- PART D: MIDDLE CALENDAR & DETAILS 2-COLUMN LAYOUT                    -->
+        <!-- Col 1: Interactive Week Calendar Grid | Col 2: Active Block Details  -->
+        <!-- ==================================================================== -->
+        <div class="calendar-middle-layout">
+          
+          <!-- D.1 Interactive Week Schedule Calendar Card -->
+          <div class="dashboard-card calendar-grid-card" id="calendar-grid-card">
+            <!-- Populated dynamically by renderCalendarGrid() in calendar.js -->
+          </div>
+
+          <!-- D.2 Active Block Details Panel Card -->
+          <div class="dashboard-card block-details-card" id="block-details-card">
+            <!-- Populated dynamically by renderBlockDetails() in calendar.js -->
+          </div>
+
+        </div>
+
+        <!-- ==================================================================== -->
+        <!-- PART E: BOTTOM ANALYTICS ROW                                         -->
+        <!-- 3-Column Layout: Block Summary Donut | Conflicts & Alerts | Upcoming -->
+        <!-- ==================================================================== -->
+        <div class="calendar-bottom-analytics-grid">
+          
+          <!-- E.1 Block Summary Donut Card (This Week) -->
+          <div class="dashboard-card block-summary-card" id="block-summary-card">
+            <!-- Populated dynamically by renderBlockSummaryDonut() in calendar.js -->
+          </div>
+
+          <!-- E.2 Conflicts & Alerts Card -->
+          <div class="dashboard-card conflicts-alerts-card" id="conflicts-alerts-card">
+            <!-- Populated dynamically by renderConflictsAndAlerts() in calendar.js -->
+          </div>
+
+          <!-- E.3 Upcoming Scheduled Blocks Card -->
+          <div class="dashboard-card upcoming-blocks-card" id="upcoming-blocks-card">
+            <!-- Populated dynamically by renderUpcomingBlocks() in calendar.js -->
+          </div>
+
+        </div>
+
+      </main>
+
+      <!-- ====================================================================== -->
+      <!-- 2.3 BOTTOM FOOTER BANNER                                               -->
+      <!-- Executive motto and Indian Railways brand partnership statement        -->
+      <!-- Injected dynamically by renderSidebarAndFooter() in calendar.js        -->
+      <!-- ====================================================================== -->
+      <footer class="bottom-footer" id="app-bottom-footer">
+        <div class="footer-quote" id="footer-quote-container"></div>
+        <div class="footer-links" id="footer-links-container"></div>
+      </footer>
+
+    </div>
+
+  </div>
+
+  <!-- ========================================================================== -->
+  <!-- MODAL: CREATE NEW MAINTENANCE BLOCK                                        -->
+  <!-- Interactive popup dialog for scheduling blocks                             -->
+  <!-- ========================================================================== -->
+  <div class="modal-backdrop" id="create-block-modal" style="display:none;">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-icon"><i class="fa-solid fa-calendar-plus"></i></span>
+          <h3>Schedule New Maintenance Block</h3>
+        </div>
+        <button class="modal-close-btn" id="close-modal-btn" aria-label="Close dialog">&times;</button>
+      </div>
+      <form class="modal-form" id="create-block-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="block-section-input">Railway Section *</label>
+            <select id="block-section-input" required>
+              <option value="">Select Section</option>
+              <option value="Bokaro – Chandrapura">JH-BOK-002: Bokaro – Chandrapura</option>
+              <option value="Dhanbad – KumerDubi">JH-DHN-007: Dhanbad – KumerDubi</option>
+              <option value="Ranchi – Namkum">JH-RNC-004: Ranchi – Namkum</option>
+              <option value="Latehar – Daltonganj">JH-LDH-008: Latehar – Daltonganj</option>
+              <option value="Chakradharpur – Rourkela">JH-CKP-005: Chakradharpur – Rourkela</option>
+              <option value="Gumla – Lohardaga">JH-GML-003: Gumla – Lohardaga</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="block-dept-input">Department *</label>
+            <select id="block-dept-input" required>
+              <option value="Engineering">Engineering (Track & P-Way)</option>
+              <option value="S&T">S&T (Signals & Telecom)</option>
+              <option value="TRD">TRD (Traction & OHE)</option>
+              <option value="Joint">Joint Block (Multiple Depts)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="block-date-input">Block Date *</label>
+            <input type="date" id="block-date-input" value="2026-09-16" required>
+          </div>
+          <div class="form-group">
+            <label for="block-duration-input">Duration (Hours) *</label>
+            <input type="number" id="block-duration-input" min="1" max="12" value="3" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="block-start-time">Start Time *</label>
+            <input type="time" id="block-start-time" value="01:30" required>
+          </div>
+          <div class="form-group">
+            <label for="block-end-time">End Time *</label>
+            <input type="time" id="block-end-time" value="04:30" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="block-desc-input">Work Description *</label>
+          <textarea id="block-desc-input" rows="2" placeholder="e.g. Ultrasonic flaw detection, rail renewal, OHE bond tightening..." required></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" id="cancel-block-btn">Cancel</button>
+          <button type="submit" class="btn-submit"><i class="fa-solid fa-check"></i> Schedule Block</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Interactive Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Page Logic & Mock Data Script -->
+  <script src="calendar.js"></script>
+</body>
+</html>
