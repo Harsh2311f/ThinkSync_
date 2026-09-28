@@ -10,11 +10,15 @@ train movements your opportunity-window search would take seconds instead
 of milliseconds. Always index before you build the API.
 """
 
+import os
+
+from dotenv import load_dotenv
 from pymongo import MongoClient, ASCENDING, DESCENDING, GEOSPHERE
 
-# Local MongoDB. For MongoDB Atlas, paste your connection string here instead.
-MONGO_URI = "mongodb://localhost:27017"
-DB_NAME = "thinksync"
+load_dotenv()
+
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
+DB_NAME = os.getenv("DB_NAME", "thinksync")
 
 db = MongoClient(MONGO_URI)[DB_NAME]
 

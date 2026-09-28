@@ -1,11 +1,25 @@
 import os
+
 from dotenv import load_dotenv
-from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import AsyncMongoClient
+from pymongo.errors import PyMongoError
 
 load_dotenv()
 
-MONGO_URI = os.getenv("MONGO_URI")
-DB_NAME = os.getenv("DB_NAME")
+MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017")
+DB_NAME = os.getenv("DB_NAME", "thinksync")
 
-client = AsyncIOMotorClient(MONGO_URI)
+client = AsyncMongoClient(
+    MONGO_URI,
+    serverSelectionTimeoutMS=5000,
+)
+
 db = client[DB_NAME]
+
+
+async def ping_database() -> bool:
+    try:
+        await client.admin.command("ping")
+        return True
+    except PyMongoError:
+        return False

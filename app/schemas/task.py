@@ -1,7 +1,8 @@
 # app/schemas/task.py
-from pydantic import BaseModel
-from typing import Optional
 from datetime import datetime
+from typing import Optional
+
+from pydantic import BaseModel, Field
 
 
 class Geo(BaseModel):
@@ -54,6 +55,10 @@ class Labels(BaseModel):
     actual_repair_min: Optional[int] = None
 
 
+class TaskStatusUpdate(BaseModel):
+    status: str = Field(min_length=1, max_length=50)
+
+
 class Task(BaseModel):
     task_id: str
     source_system: Optional[str] = None
@@ -68,3 +73,5 @@ class Task(BaseModel):
     schedule: Optional[Schedule] = None
     readiness: Optional[Readiness] = None
     labels: Optional[Labels] = None
+    workflow_status: Optional[str] = None
+    updated_at: Optional[datetime] = None

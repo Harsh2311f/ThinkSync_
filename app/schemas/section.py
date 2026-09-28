@@ -1,9 +1,11 @@
 from pydantic import BaseModel
 from typing import Optional
 
+
 class GeoPoint(BaseModel):
     type: str
     coordinates: list[float]
+
 
 class Section(BaseModel):
     section_id: str
@@ -14,6 +16,10 @@ class Section(BaseModel):
     district_corridor: Optional[str] = None
     origin_station: Optional[str] = None
     destination_station: Optional[str] = None
+
+    origin_geo: Optional[GeoPoint] = None
+    destination_geo: Optional[GeoPoint] = None
+
     line_type: Optional[str] = None
     length_km: Optional[float] = None
     traffic_density: Optional[float] = None
